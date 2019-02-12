@@ -1,0 +1,23 @@
+{
+  "name": "salesmanagement-crm-server",
+  "version": "1.0.0",
+  "description": "Server side implementation for the salesmanagement-crm system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f4irline/salesmanagement-crm-server.git"
+  },
+  "author": "Tommi Lepola, Ville-Veikko Nieminen, Elias Pohjalainen, Toni Silventoinen, Joni Koskinen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/f4irline/salesmanagement-crm-server/issues"
+  },
+  "homepage": "https://github.com/f4irline/salesmanagement-crm-server#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}
