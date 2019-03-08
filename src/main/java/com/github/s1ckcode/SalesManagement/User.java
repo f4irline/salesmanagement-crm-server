@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private int userId;
     private String name;
     private LocalDate lastLogin;
     private String role;
