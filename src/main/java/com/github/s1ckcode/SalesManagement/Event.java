@@ -9,10 +9,41 @@ public class Event {
     private String notes;
     private Date date;
 
+    private int leadID;
+    private int userID;
+
     public Event() {
     }
 
     /**
+	 * @return the leadID
+	 */
+	public int getLeadID() {
+		return leadID;
+	}
+
+	/**
+	 * @param leadID the leadID to set
+	 */
+	public void setLeadID(int leadID) {
+		this.leadID = leadID;
+	}
+
+	/**
+	 * @return the userID
+	 */
+	public int getUserID() {
+		return userID;
+	}
+
+	/**
+	 * @param userID the userID to set
+	 */
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	/**
      * @return the id
      */
     public int getId() {
