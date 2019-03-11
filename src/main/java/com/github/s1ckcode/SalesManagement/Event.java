@@ -18,18 +18,22 @@ public class Event {
     @Id
     @GeneratedValue
     private int eventId;
-    private String type;
+    private int eventType;
     private String notes;
     private LocalDate date = LocalDate.now();
-
     private int leadID;
+
+    public static final int CONTACT = 0;  //yht.otto
+    public static final int MEETING = 1;  //tapaaminen
+    public static final int OFFER = 2;    //tarjous
+    public static final int SALE = 3;     //kauppa
 
     public Event() {
     }
 
-    public Event(User user, String type, String notes) {
+    public Event(User user, int eventType, String notes) {
         this.user = user;
-        this.type = type;
+        this.eventType = eventType;
         this.notes = notes;
     }
 
@@ -78,15 +82,15 @@ public class Event {
     /**
      * @return the type
      */
-    public String getType() {
-        return type;
+    public int getEventType() {
+        return eventType;
     }
 
     /**
-     * @param type the type to set
+     * @param eventType the type to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
     }
 
     /**
