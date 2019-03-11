@@ -1,24 +1,28 @@
 package com.github.s1ckcode.SalesManagement;
 
+import com.github.s1ckcode.SalesManagement.Event.Event;
+import com.github.s1ckcode.SalesManagement.Event.EventRepository;
+import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
+import com.github.s1ckcode.SalesManagement.User.User;
+import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
 @SpringBootApplication
 public class SalesManagementApplication implements CommandLineRunner {
 
     @Autowired
-    UserRepository userRepository;
+	UserRepository userRepository;
 
 	@Autowired
-	EventRepository eventRepository;
+    EventRepository eventRepository;
 
 	@Autowired
-	LeadRepository leadRepository;
+    LeadRepository leadRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SalesManagementApplication.class, args);

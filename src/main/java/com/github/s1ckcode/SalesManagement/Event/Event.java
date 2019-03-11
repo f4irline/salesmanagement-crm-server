@@ -1,8 +1,6 @@
-package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement.Event;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.github.s1ckcode.SalesManagement.User.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;

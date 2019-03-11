@@ -1,9 +1,9 @@
 package com.github.s1ckcode.SalesManagement;
 
+import com.github.s1ckcode.SalesManagement.User.User;
+import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 public class MyRestController {

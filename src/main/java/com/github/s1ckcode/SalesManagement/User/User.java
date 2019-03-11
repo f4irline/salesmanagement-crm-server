@@ -1,4 +1,4 @@
-package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement.User;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

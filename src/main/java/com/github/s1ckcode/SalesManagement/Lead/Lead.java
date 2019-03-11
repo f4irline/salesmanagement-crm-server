@@ -1,4 +1,6 @@
-package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement.Lead;
+
+import com.github.s1ckcode.SalesManagement.Event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDate;
