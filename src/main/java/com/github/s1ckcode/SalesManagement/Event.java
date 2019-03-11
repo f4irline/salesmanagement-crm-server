@@ -1,13 +1,24 @@
 package com.github.s1ckcode.SalesManagement;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
+
+@Entity
 public class Event {
 
-    private int id;
+    @JoinColumn(name = "USER_ID")
+    private int user;
+    @Id
+    @GeneratedValue
+    private int eventId;
     private String type;
     private String notes;
-    private Date date;
+    private LocalDate date = LocalDate.now();
 
     private int leadID;
     private int userID;
@@ -15,6 +26,14 @@ public class Event {
     public Event() {
     }
 
+    public int getUser() {
+        return user;
+    }
+
+
+    public void setUser(int user) {
+        this.user = user;
+    }
     /**
 	 * @return the leadID
 	 */
@@ -46,15 +65,17 @@ public class Event {
 	/**
      * @return the id
      */
-    public int getId() {
-        return id;
+
+
+    public int getEventId() {
+        return eventId;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setEventId(int id) {
+        this.eventId = id;
     }
 
     /**
@@ -88,14 +109,14 @@ public class Event {
     /**
      * @return the date
      */
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
