@@ -14,6 +14,9 @@ public class SalesManagementApplication implements CommandLineRunner {
     @Autowired
     UserRepository userRepository;
 
+	@Autowired
+	EventRepository eventRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SalesManagementApplication.class, args);
 	}
@@ -22,5 +25,7 @@ public class SalesManagementApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		userRepository.save(new User("Jaska", LocalDate.now(),"Salesperson","Hash1"));
 		userRepository.save(new User("Tintti",LocalDate.now(),"Office dog","Hash2"));
+
+		eventRepository.save(new Event(123, "meeting", "notes123"));
 	}
 }
