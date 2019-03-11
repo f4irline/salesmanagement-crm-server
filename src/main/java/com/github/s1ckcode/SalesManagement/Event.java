@@ -20,9 +20,10 @@ public class Event {
     private int eventId;
     private int eventType;
     private String notes;
-    private final LocalDate date = LocalDate.now();
+    private LocalDate date = LocalDate.now();
     private int leadID;
     private double sum;
+    private String place;
 
     public static final int CONTACT = 0;  //yht.otto
     public static final int MEETING = 1;  //tapaaminen
@@ -32,10 +33,27 @@ public class Event {
     public Event() {
     }
 
-    public Event(User user, int eventType, String notes) {
-        this.user = user;
-        this.eventType = eventType;
-        this.notes = notes;
+    public Event(User user, int eventType, String notes, LocalDate date) {
+        setUser(user);
+        setEventType(eventType);
+        setNotes(notes);
+        setDate(date);
+    }
+
+    public Event(User user, int eventType, String notes, LocalDate date, Double sum) {
+        setUser(user);
+        setEventType(eventType);
+        setNotes(notes);
+        setDate(date);
+        setSum(sum);
+    }
+
+    public Event(User user, int eventType, String notes, LocalDate date, String place) {
+        setUser(user);
+        setEventType(eventType);
+        setNotes(notes);
+        setDate(date);
+        setPlace(place);
     }
 
     public User getUser() {
@@ -46,11 +64,6 @@ public class Event {
     public void setUser(User user) {
         this.user = user;
     }
-
-
-
-
-
 
 	/**
      * @return the id
@@ -102,6 +115,13 @@ public class Event {
     }
 
     /**
+     * @param date the date to set
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
      * @return the leadID
      */
     public int getLeadID() {
@@ -121,5 +141,13 @@ public class Event {
 
     public void setSum(double sum) {
         this.sum = sum;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }
