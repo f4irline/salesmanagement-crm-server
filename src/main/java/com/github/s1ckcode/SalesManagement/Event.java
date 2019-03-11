@@ -5,12 +5,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
 public class Event {
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")

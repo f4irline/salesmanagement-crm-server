@@ -1,31 +1,85 @@
 package com.github.s1ckcode.SalesManagement;
 
-import java.sql.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
+@Entity
 public class Lead {
 
-    private int id;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EVENT_ID")
+    private Event event;
+    @Id
+    @GeneratedValue
+    private int leadId;
+    private LocalDate date = LocalDate.now();
     private String company;
+    private String industry;
     private String contact;
-    private int phone;
+    private String contactRole;
+    private String phone;
     private String email;
     private String website;
+    private String notes;
 
     public Lead() {
     }
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
+    public Lead(Event event, String company, String contact, String phone, String email, String website) {
+        this.event = event;
+        this.company = company;
+        this.contact = contact;
+        this.phone = phone;
+        this.email = email;
+        this.website = website;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public String getContactRole() {
+        return contactRole;
+    }
+
+    public void setContactRole(String contactRole) {
+        this.contactRole = contactRole;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public int getLeadId() {
+        return leadId;
+    }
+
+    public void setLeadId(int leadId) {
+        this.leadId = leadId;
     }
 
     /**
@@ -59,14 +113,14 @@ public class Lead {
     /**
      * @return the phone
      */
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
