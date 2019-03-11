@@ -11,12 +11,10 @@ import java.time.LocalDate;
 @Entity
 public class Event {
 
-    /*
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    */
-    //private User user;
-    private int user;
+    private User user;
     @Id
     @GeneratedValue
     private int eventId;
@@ -29,13 +27,13 @@ public class Event {
     public Event() {
     }
 
-    public Event(int user, String type, String notes) {
+    public Event(User user, String type, String notes) {
         this.user = user;
         this.type = type;
         this.notes = notes;
     }
 
-    public int getUser() {
+    public User getUser() {
         return user;
     }
 
