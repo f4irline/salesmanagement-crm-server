@@ -20,8 +20,9 @@ public class Event {
     private int eventId;
     private int eventType;
     private String notes;
-    private LocalDate date = LocalDate.now();
+    private final LocalDate date = LocalDate.now();
     private int leadID;
+    private double sum;
 
     public static final int CONTACT = 0;  //yht.otto
     public static final int MEETING = 1;  //tapaaminen
@@ -41,24 +42,12 @@ public class Event {
         return user;
     }
 
-/*
+
     public void setUser(User user) {
         this.user = user;
     }
-    */
-    /**
-	 * @return the leadID
-	 */
-	public int getLeadID() {
-		return leadID;
-	}
 
-	/**
-	 * @param leadID the leadID to set
-	 */
-	public void setLeadID(int leadID) {
-		this.leadID = leadID;
-	}
+
 
 
 
@@ -66,8 +55,6 @@ public class Event {
 	/**
      * @return the id
      */
-
-
     public int getEventId() {
         return eventId;
     }
@@ -115,10 +102,24 @@ public class Event {
     }
 
     /**
-     * @param date the date to set
+     * @return the leadID
      */
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public int getLeadID() {
+        return leadID;
     }
 
+    /**
+     * @param leadID the leadID to set
+     */
+    public void setLeadID(int leadID) {
+        this.leadID = leadID;
+    }
+
+    public double getSum() {
+        return sum;
+    }
+
+    public void setSum(double sum) {
+        this.sum = sum;
+    }
 }
