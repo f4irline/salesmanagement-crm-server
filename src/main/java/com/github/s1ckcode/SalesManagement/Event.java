@@ -33,6 +33,7 @@ public class Event {
     public Event() {
     }
 
+    //Kontakti
     public Event(User user, int eventType, String notes, LocalDate date) {
         setUser(user);
         setEventType(eventType);
@@ -40,6 +41,7 @@ public class Event {
         setDate(date);
     }
 
+    //Kauppa tarjous
     public Event(User user, int eventType, String notes, LocalDate date, Double sum) {
         setUser(user);
         setEventType(eventType);
@@ -48,6 +50,7 @@ public class Event {
         setSum(sum);
     }
 
+    //Tapaaminen
     public Event(User user, int eventType, String notes, LocalDate date, String place) {
         setUser(user);
         setEventType(eventType);
