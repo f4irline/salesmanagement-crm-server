@@ -14,15 +14,25 @@ public class User {
     private int userId;
     private String name;
     private LocalDate lastLogin;
-    private String role;
+    private int role;
     private String password;
     private final LocalDate createDate = LocalDate.now();
 
+    public static int USER = 0;
+    public static int ADMIN = 1;
+
     public User(){}
 
-    public User(String name, LocalDate lastLogin, String role, String password) {
+    public User(String name, LocalDate lastLogin, int role, String password) {
         this.name = name;
         this.lastLogin = lastLogin;
+        this.role = role;
+        this.password = Utils.hashMyPassword(password);
+    }
+
+    public User(String name, int role, String password) {
+        this.name = name;
+        this.lastLogin = LocalDate.now();
         this.role = role;
         this.password = Utils.hashMyPassword(password);
     }
@@ -49,11 +59,11 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
