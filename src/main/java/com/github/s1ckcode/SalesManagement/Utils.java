@@ -11,7 +11,9 @@ import java.util.Optional;
 import static com.github.s1ckcode.SalesManagement.Event.Event.CONTACT;
 import static com.github.s1ckcode.SalesManagement.Event.Event.SALE;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Utils {
 
     @Autowired
