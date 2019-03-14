@@ -1,5 +1,7 @@
 package com.github.s1ckcode.SalesManagement.User;
 
+import com.github.s1ckcode.SalesManagement.Utils;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ public class User {
         this.name = name;
         this.lastLogin = lastLogin;
         this.role = role;
-        this.password = password;
+        this.password = Utils.hashMyPassword(password);
     }
 
     public void setUserId(int userId){ this.userId = userId; }
@@ -60,7 +62,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = this.password = Utils.hashMyPassword(password);
     }
 
     public LocalDate getCreateDate() {
