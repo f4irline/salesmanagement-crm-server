@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 public class Lead {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "EVENT_ID")
     private Event event;
     @Id
