@@ -39,7 +39,7 @@ public class SalesManagementApplication implements CommandLineRunner {
         //User user, int eventType, String notes, LocalDate date, String place
         eventRepository.save(new Event(userRepository.findByName("Tintti"), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),"Kahvila kulman takana"));
 
-        Iterable<Event> events = (eventRepository.findEventsByUser(userRepository.findByName("Jaska")));
+        Iterable<Event> events = (eventRepository.findEventsByUser(userRepository.findById(1)));
         events.forEach((event -> System.out.println(event.getNotes())) );
 
 		//leadRepository.save(new Lead(eventRepository.findByEventId(1), "CompanyABC", "Contact123", "5069696969", "pekka@puu.com", "www.pekka.fi"));
