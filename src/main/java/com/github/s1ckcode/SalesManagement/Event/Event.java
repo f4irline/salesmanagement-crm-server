@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 public class Event {
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;
     @Id
