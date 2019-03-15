@@ -6,8 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface EventRepository extends CrudRepository<Event,Integer> {
-    public Iterable<Event> findEventsByUser(Optional<User> user);
     public Iterable<Event> findEventsByUser(User user);
-    public Iterable<Event> findEventsByEventTypeAndUser(int eventType, Optional<User> user);
     public Iterable<Event> findEventsByEventTypeAndUser(int eventType, User user);
 }
