@@ -93,9 +93,10 @@ public class MyRestController {
         return entities;
     }
 
-    @PostMapping(value = "/events/add/{userId}")
-    public void addEvent(@RequestBody Event event, @PathVariable int userId) {
+    @PostMapping(value = "/events/add/{userId}/{leadId}")
+    public void addEvent(@RequestBody Event event, @PathVariable int userId, @PathVariable int leadId) {
         event.setUser(userRepository.findById(userId).get());
+        event.setLead(leadRepository.findById(leadId).get());
         eventRepository.save(event);
     }
 
