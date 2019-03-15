@@ -34,7 +34,8 @@ public class Event {
     }
 
     //Kontakti
-    public Event(User user, int eventType, String notes, LocalDate date) {
+    public Event(User user,Lead lead, int eventType, String notes, LocalDate date) {
+        setLead(lead);
         setUser(user);
         setEventType(eventType);
         setNotes(notes);
@@ -42,7 +43,8 @@ public class Event {
     }
 
     //Kauppa tarjous
-    public Event(User user, int eventType, String notes, LocalDate date, Double sum) {
+    public Event(User user, Lead lead, int eventType, String notes, LocalDate date, Double sum) {
+        setLead(lead);
         setUser(user);
         setEventType(eventType);
         setNotes(notes);
@@ -51,7 +53,8 @@ public class Event {
     }
 
     //Tapaaminen
-    public Event(User user, int eventType, String notes, LocalDate date, String place) {
+    public Event(User user,Lead lead, int eventType, String notes, LocalDate date, String place) {
+        setLead(lead);
         setUser(user);
         setEventType(eventType);
         setNotes(notes);
@@ -68,9 +71,19 @@ public class Event {
         this.user = user;
     }
 
-	/**
+    public Lead getLead() {
+        return lead;
+    }
+
+    public void setLead(Lead lead) {
+        this.lead = lead;
+    }
+
+    /**
      * @return the id
      */
+
+
     public int getEventId() {
         return eventId;
     }
