@@ -8,8 +8,15 @@ import java.time.LocalDate;
 @Entity
 public class Lead {
 
+    @TableGenerator(name = "Lead_Gen",
+            table = "LEAD_ID_GEN",
+            pkColumnName = "LEAD_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Lead_Gen",
+            initialValue = 100000,
+            allocationSize = 100)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Lead_Gen")
     private int leadId;
     private LocalDate date;
     private String companyName;
@@ -79,42 +86,42 @@ public class Lead {
     /**
      * @return the company
      */
-    public String getCompany() {
+    public String getCompanyName() {
         return companyName;
     }
 
     /**
      * @param company the company to set
      */
-    public void setCompany(String company) {
+    public void setCompanyName(String company) {
         this.companyName = company;
     }
 
     /**
      * @return the contact
      */
-    public String getContact() {
+    public String getContactPerson() {
         return contactPerson;
     }
 
     /**
      * @param contact the contact to set
      */
-    public void setContact(String contact) {
+    public void setContactPerson(String contact) {
         this.contactPerson = contact;
     }
 
     /**
      * @return the phone
      */
-    public String getPhone() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(String phone) {
+    public void setPhoneNumber(String phone) {
         this.phoneNumber = phone;
     }
 

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 public class User {
     @TableGenerator(name = "User_Gen",
-            table = "ID_GEN",
+            table = "USER_ID_GEN",
             pkColumnName = "USER_ID",
             valueColumnName = "GEN_VAL",
             pkColumnValue = "User_Gen",
