@@ -28,9 +28,9 @@ public class MyRestController {
         return userRepository.findAll();
     }
 
-    @GetMapping(value="/users/{name}")
-    public User user(@PathVariable String name) {
-        return userRepository.findByName(name);
+    @GetMapping(value="/users/{userId}")
+    public Optional<User> user(@PathVariable int userId) {
+        return userRepository.findById(userId);
     }
 
     /*
