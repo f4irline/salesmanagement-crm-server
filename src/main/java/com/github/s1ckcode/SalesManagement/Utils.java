@@ -22,46 +22,6 @@ public class Utils {
     @Autowired
     EventRepository eventRepository;
 
-    public double getHitrate(Optional<User> user) {
-        double contacts = 0;
-        double sales = 0;
-        //user.ifPresent();
-        Iterable<Event> events = (eventRepository.findEventsByUser(user));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                sales++;
-            }
-            else if(event.getEventType() == CONTACT) {
-                contacts++;
-            }
-        }
-        return sales / contacts;
-    }
-
-    public double getAvgSales(Optional<User> user) {
-        double salesCount = 0;
-        double salesValue = 0;
-        Iterable<Event> events = (eventRepository.findEventsByUser(user));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                salesCount++;
-                salesValue =+ event.getSum();
-            }
-        }
-        return salesValue / salesCount;
-    }
-
-    public double getAllSales(Optional<User> user) {
-        double salesValue = 0;
-        Iterable<Event> events = (eventRepository.findEventsByUser(user));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                salesValue =+ event.getSum();
-            }
-        }
-        return salesValue;
-    }
-
     public double getHitrate(User user) {
         double contacts = 0;
         double sales = 0;
