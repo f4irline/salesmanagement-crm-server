@@ -50,7 +50,7 @@ public class MyRestController {
 
     @GetMapping(value = "/userData/{userId}")
     public JsonNode getUserData(@PathVariable int userId) {
-        Optional<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId).get();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("hitRate",utils.getHitrate(user));
@@ -92,7 +92,7 @@ public class MyRestController {
 
     @GetMapping(value = "/events/{userId}")
     public Iterable<Event> getAllEventsFromUser(@PathVariable int userId) {
-        return eventRepository.findEventsByUser(userRepository.findById(userId));
+        return eventRepository.findEventsByUser(userRepository.findById(userId).get());
     }
 
     @GetMapping(value = "/events")
