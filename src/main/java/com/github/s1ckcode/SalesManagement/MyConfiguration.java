@@ -9,7 +9,7 @@ public class MyConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                .allowedOrigins("https://localhost:3000", "https://vc-system-server.herokuapp.com")
+                .allowedOrigins("https://localhost:3000", "https://vc-system-server.herokuapp.com", "http://localhost:3000")
                 .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH");
     }
 }
