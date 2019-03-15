@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.s1ckcode.SalesManagement.Utils;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class User {
     private String userLast;
     private LocalDate lastLogin;
     private int role;
-    private String password;
+    private @JsonIgnore String password;
     private double goal;
     private final LocalDate createDate = LocalDate.now();
 
