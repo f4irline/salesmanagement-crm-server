@@ -56,7 +56,8 @@ public class Utils {
         if(salesCount == 0) {
             return 0.0;
         }
-        return salesValue / salesCount;
+        double avgSales = salesValue / salesCount;
+        return Math.round(avgSales * 100.0) /100.0;
     }
 
     public double getAllSales(User user) {
