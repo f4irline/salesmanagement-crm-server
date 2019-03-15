@@ -17,7 +17,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
-    private String name;
+    private String userFirst;
+    private String userLast;
     private LocalDate lastLogin;
     private int role;
     private String password;
@@ -28,15 +29,17 @@ public class User {
 
     public User(){}
 
-    public User(String name, LocalDate lastLogin, int role, String password) {
-        this.name = name;
+    public User(String userFirst,String userLast, LocalDate lastLogin, int role, String password) {
+        this.userFirst = userFirst;
+        this.userLast = userLast;
         this.lastLogin = lastLogin;
         this.role = role;
         this.password = Utils.hashMyPassword(password);
     }
 
-    public User(String name, int role, String password) {
-        this.name = name;
+    public User(String userFirst,String userLast, int role, String password) {
+        this.userFirst = userFirst;
+        this.userLast = userLast;
         this.lastLogin = LocalDate.now();
         this.role = role;
         this.password = Utils.hashMyPassword(password);
@@ -48,12 +51,20 @@ public class User {
         return userId;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public String getUserFirst() {
+        return userFirst;
     }
 
-    public String getName() {
-        return name;
+    public void setUserFirst(String userFirst) {
+        this.userFirst = userFirst;
+    }
+
+    public String getUserLast() {
+        return userLast;
+    }
+
+    public void setUserLast(String userLast) {
+        this.userLast = userLast;
     }
 
     public LocalDate getLastLogin() {
