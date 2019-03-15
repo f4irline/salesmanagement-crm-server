@@ -30,6 +30,9 @@ public class Event {
     private LocalDate date = LocalDate.now();
     private double sum;
     private String place;
+    private String contactPerson;
+    private String phoneNumber;
+    private String email;
 
     public static final int CONTACT = 0;  //yht.otto
     public static final int MEETING = 1;  //tapaaminen
@@ -157,5 +160,29 @@ public class Event {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
