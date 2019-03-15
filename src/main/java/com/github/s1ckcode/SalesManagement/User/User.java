@@ -22,7 +22,7 @@ public class User {
     private LocalDate lastLogin;
     private int role;
     private String password;
-    private double goal;
+    private double monthlyGoal;
     private final LocalDate createDate = LocalDate.now();
 
     public static int USER = 0;
@@ -30,13 +30,13 @@ public class User {
 
     public User(){}
 
-    public User(String userFirst, String userLast, LocalDate lastLogin, int role, String password, double goal) {
+    public User(String userFirst, String userLast, LocalDate lastLogin, int role, String password, double monthlyGoal) {
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.lastLogin = lastLogin;
         this.role = role;
         this.password = Utils.hashMyPassword(password);
-        this.goal = goal;
+        this.monthlyGoal = monthlyGoal;
     }
 
     public void setUserId(int userId){ this.userId = userId; }
@@ -85,12 +85,12 @@ public class User {
         this.password = this.password = Utils.hashMyPassword(password);
     }
 
-    public double getGoal() {
-        return goal;
+    public double getMonthlyGoal() {
+        return monthlyGoal;
     }
 
-    public void setGoal(double goal) {
-        this.goal = goal;
+    public void setMonthlyGoal(double monthlyGoal) {
+        this.monthlyGoal = monthlyGoal;
     }
 
     public LocalDate getCreateDate() {
