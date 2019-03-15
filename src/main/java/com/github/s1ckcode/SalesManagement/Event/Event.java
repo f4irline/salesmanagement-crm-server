@@ -28,7 +28,6 @@ public class Event {
     private int eventType;
     private String notes;
     private LocalDate date = LocalDate.now();
-    private int leadID;
     private double sum;
     private String place;
 
@@ -142,20 +141,6 @@ public class Event {
      */
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    /**
-     * @return the leadID
-     */
-    public int getLeadID() {
-        return leadID;
-    }
-
-    /**
-     * @param leadID the leadID to set
-     */
-    public void setLeadID(int leadID) {
-        this.leadID = leadID;
     }
 
     public double getSum() {
