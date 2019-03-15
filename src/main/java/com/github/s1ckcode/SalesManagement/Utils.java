@@ -101,7 +101,8 @@ public class Utils {
         double goal = 0;
         int previousDate = 1;
 
-        Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
+        //Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
+        Iterable<Event> events = eventRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
         for(Event event: events) {
 
