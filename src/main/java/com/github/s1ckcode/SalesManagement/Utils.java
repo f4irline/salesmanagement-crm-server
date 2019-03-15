@@ -1,17 +1,30 @@
 package com.github.s1ckcode.SalesManagement;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.s1ckcode.SalesManagement.Company.CompanyRepository;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.github.s1ckcode.SalesManagement.Event.Event.CONTACT;
 import static com.github.s1ckcode.SalesManagement.Event.Event.SALE;
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import javax.jws.soap.SOAPBinding;
 
 @Component
 public class Utils {
@@ -21,6 +34,9 @@ public class Utils {
 
     @Autowired
     EventRepository eventRepository;
+
+    @Autowired
+    CompanyRepository companyRepository;
 
     public double getHitrate(User user) {
         double contacts = 0;
@@ -72,10 +88,37 @@ public class Utils {
         return salesValue;
     }
 
+    public Iterable<JsonNode> getCompanyChart(Month month) {
+        YearMonth yearMonth = YearMonth.of(2019,2);
+        int daysInMonth = yearMonth.lengthOfMonth();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        double wholeSum = 0;
+        int monthNum = 1; //THIS IS GOING TO BE GIVEN MONTH IN INTEGER 1-12
+        double wholeGoal = companyRepository.getMonthlyGoalByMonth(month);
+        double dailyGoal = wholeGoal/daysInMonth;
+        double goal = 0;
+        int previousDate = 1;
+
+        Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
+        List<JsonNode> entities= new ArrayList<>();
+        for(Event event: events) {
+
+            goal += (event.getDate().getDayOfMonth() - previousDate) * dailyGoal;
+            previousDate = event.getDate().getDayOfMonth();
+
+            JsonNode node = mapper.createObjectNode();
+            ((ObjectNode) node).put("date",event.getDate().toString());
+            ((ObjectNode) node).put("sum", wholeSum += event.getSum());
+            ((ObjectNode) node).put("goal", goal);
+            entities.add(node);
+        }
+        return entities;
+    }
+
     public static String hashMyPassword(String password) {
         BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
         return bCryptEncoder.encode(password);
     }
-
-
 }

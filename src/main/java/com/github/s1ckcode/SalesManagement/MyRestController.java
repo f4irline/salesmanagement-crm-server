@@ -13,6 +13,8 @@ import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -118,5 +120,11 @@ public class MyRestController {
     @GetMapping(value ="/leads")
     public Iterable<Lead> getAllLeads() {
         return leadRepository.findAll();
+    }
+
+    @GetMapping(value = "/companyData/{date}/")
+    public Iterable<JsonNode> getCompanyChart(@PathVariable LocalDate date) {
+        Month month = date.getMonth();
+        return utils.getCompanyChart(month);
     }
 }
