@@ -31,15 +31,15 @@ public class Lead {
     public Lead() {
     }
 
-    public Lead(LocalDate date, String companyName, String contactPerson, String contactRole, String phoneNumber, String email, String website, String industry, String notes) {
+    public Lead(LocalDate date, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
         this.date = date;
         this.companyName = companyName;
+        this.industry = industry;
         this.contactPerson = contactPerson;
         this.contactRole = contactRole;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.website = website;
-        this.industry = industry;
         this.notes = notes;
     }
 

@@ -38,7 +38,7 @@ public class SalesManagementApplication implements CommandLineRunner {
         //LocalDate date, String companyName, String contactPerson, String contactRole, String phoneNumber, String email, String website, String industry, String notes
         Lead lead = new Lead(LocalDate.now(), "CompanyABC","Keijo Ala-Kukkula","Boss Man", "010101010101", "keijukainen@koll.fi", "www.pekka.fi", "teollisuus", "Homopekka");
         leadRepository.save(lead);
-
+/*
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
@@ -56,5 +56,6 @@ public class SalesManagementApplication implements CommandLineRunner {
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),"Kahvila kulman takana"));
 
 		//leadRepository.save(new Lead(eventRepository.findByEventId(1), "CompanyABC", "Contact123", "5069696969", "pekka@puu.com", "www.pekka.fi"));
+		*/
 	}
 }

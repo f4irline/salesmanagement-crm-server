@@ -29,18 +29,10 @@ public class User {
 
     public User(){}
 
-    public User(String userFirst,String userLast, LocalDate lastLogin, int role, String password) {
+    public User(String userFirst, String userLast, LocalDate lastLogin, int role, String password) {
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.lastLogin = lastLogin;
-        this.role = role;
-        this.password = Utils.hashMyPassword(password);
-    }
-
-    public User(String userFirst,String userLast, int role, String password) {
-        this.userFirst = userFirst;
-        this.userLast = userLast;
-        this.lastLogin = LocalDate.now();
         this.role = role;
         this.password = Utils.hashMyPassword(password);
     }

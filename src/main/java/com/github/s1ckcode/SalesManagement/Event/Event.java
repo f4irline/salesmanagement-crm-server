@@ -42,33 +42,17 @@ public class Event {
     public Event() {
     }
 
-    //Kontakti
-    public Event(User user,Lead lead, int eventType, String notes, LocalDate date) {
-        setLead(lead);
-        setUser(user);
-        setEventType(eventType);
-        setNotes(notes);
-        setDate(date);
-    }
-
-    //Kauppa tarjous
-    public Event(User user, Lead lead, int eventType, String notes, LocalDate date, Double sum) {
-        setLead(lead);
-        setUser(user);
-        setEventType(eventType);
-        setNotes(notes);
-        setDate(date);
-        setSum(sum);
-    }
-
-    //Tapaaminen
-    public Event(User user,Lead lead, int eventType, String notes, LocalDate date, String place) {
-        setLead(lead);
-        setUser(user);
-        setEventType(eventType);
-        setNotes(notes);
-        setDate(date);
-        setPlace(place);
+    public Event(User user, Lead lead, int eventType, String notes, LocalDate date, double sum, String place, String contactPerson, String phoneNumber, String email) {
+        this.user = user;
+        this.lead = lead;
+        this.eventType = eventType;
+        this.notes = notes;
+        this.date = date;
+        this.sum = sum;
+        this.place = place;
+        this.contactPerson = contactPerson;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public User getUser() {
