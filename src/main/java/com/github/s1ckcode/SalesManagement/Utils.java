@@ -40,7 +40,8 @@ public class Utils {
         } else if(sales == 0) {
             return 0.0;
         }
-        return (sales / contacts)*100.0;
+        double procents = (sales / contacts)*100.0;
+        return Math.round(procents * 100.0) /100.0;
     }
 
     public double getAvgSales(User user) {
