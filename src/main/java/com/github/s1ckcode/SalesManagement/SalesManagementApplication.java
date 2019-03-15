@@ -30,8 +30,8 @@ public class SalesManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userRepository.save(new User("Jaska", LocalDate.now(),User.ADMIN,"Hash1"));
-		userRepository.save(new User("Tintti",LocalDate.now(),User.USER,"Hash2"));
+		userRepository.save(new User("Jaska","Jokunen", LocalDate.now(),User.ADMIN,"Hash1"));
+		userRepository.save(new User("Tintti","Ala-Hintti",LocalDate.now(),User.USER,"Hash2"));
 //		//User user, int eventType, String notes, LocalDate date
 		eventRepository.save(new Event(userRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
 		eventRepository.save(new Event(userRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
