@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
+import com.github.s1ckcode.SalesManagement.Lead.Lead;
+import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class MyRestController {
     UserRepository userRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    LeadRepository leadRepository;
     @Autowired
     Utils utils;
 
@@ -102,6 +106,11 @@ public class MyRestController {
     @GetMapping(value = "/events")
     public Iterable<Event> getAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @PostMapping(value="/leads/add")
+    public void addLead(@RequestBody Lead lead) {
+        leadRepository.save(lead);
     }
 
 
