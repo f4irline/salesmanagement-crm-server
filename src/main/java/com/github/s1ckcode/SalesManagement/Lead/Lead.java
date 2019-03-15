@@ -8,9 +8,6 @@ import java.time.LocalDate;
 @Entity
 public class Lead {
 
-    @OneToOne
-    @JoinColumn(name = "EVENT_ID")
-    private Event event;
     @Id
     @GeneratedValue
     private int leadId;
@@ -27,8 +24,7 @@ public class Lead {
     public Lead() {
     }
 
-    public Lead(Event event, String company, String contact, String phone, String email, String website) {
-        this.event = event;
+    public Lead(String company, String contact, String phone, String email, String website) {
         this.company = company;
         this.contact = contact;
         this.phone = phone;
@@ -66,14 +62,6 @@ public class Lead {
 
     public void setContactRole(String contactRole) {
         this.contactRole = contactRole;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
     }
 
     public int getLeadId() {
