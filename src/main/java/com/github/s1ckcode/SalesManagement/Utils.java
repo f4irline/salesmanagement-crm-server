@@ -25,7 +25,7 @@ public class Utils {
     public double getHitrate(User user) {
         double contacts = 0;
         double sales = 0;
-        //user.ifPresent();
+
         Iterable<Event> events = (eventRepository.findEventsByUser(user));
         for(Event event:events) {
             if(event.getEventType() == SALE) {
@@ -50,7 +50,7 @@ public class Utils {
         for(Event event:events) {
             if(event.getEventType() == SALE) {
                 salesCount++;
-                salesValue =+ event.getSum();
+                salesValue += event.getSum();
             }
         }
         if(salesCount == 0) {
@@ -64,7 +64,7 @@ public class Utils {
         Iterable<Event> events = (eventRepository.findEventsByUser(user));
         for(Event event:events) {
             if(event.getEventType() == SALE) {
-                salesValue =+ event.getSum();
+                salesValue += event.getSum();
             }
         }
         return salesValue;
