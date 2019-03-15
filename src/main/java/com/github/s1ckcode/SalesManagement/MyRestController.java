@@ -57,7 +57,6 @@ public class MyRestController {
         ((ObjectNode) node).put("user_last",user.getUserLast());
         ((ObjectNode) node).put("hit_rate",utils.getHitrate(user));
         ((ObjectNode) node).put("avg_sales",utils.getAvgSales(user));
-        System.out.println(utils.getAllSales(user));
         ((ObjectNode) node).put("total_sales",utils.getAllSales(user));
         ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
         ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
