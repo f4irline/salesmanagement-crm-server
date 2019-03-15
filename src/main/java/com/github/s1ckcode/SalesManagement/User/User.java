@@ -2,15 +2,20 @@ package com.github.s1ckcode.SalesManagement.User;
 
 import com.github.s1ckcode.SalesManagement.Utils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class User {
+    @TableGenerator(name = "User_Gen",
+            table = "ID_GEN",
+            pkColumnName = "USER_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "User_Gen",
+            initialValue = 100000,
+            allocationSize = 100)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
     private String name;
     private LocalDate lastLogin;
