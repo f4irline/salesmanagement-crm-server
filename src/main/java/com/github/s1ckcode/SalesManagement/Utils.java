@@ -36,11 +36,11 @@ public class Utils {
             }
         }
         if(contacts == 0 && sales >0) {
-            return 1.0;
+            return 100.0;
         } else if(sales == 0) {
             return 0.0;
         }
-        return sales / contacts;
+        return (sales / contacts)*100.0;
     }
 
     public double getAvgSales(User user) {
