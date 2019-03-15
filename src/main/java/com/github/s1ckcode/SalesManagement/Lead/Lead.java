@@ -11,12 +11,12 @@ public class Lead {
     @Id
     @GeneratedValue
     private int leadId;
-    private LocalDate date = LocalDate.now();
-    private String company;
+    private LocalDate date;
+    private String companyName;
     private String industry;
-    private String contact;
+    private String contactPerson;
     private String contactRole;
-    private String phone;
+    private String phoneNumber;
     private String email;
     private String website;
     private String notes;
@@ -24,12 +24,16 @@ public class Lead {
     public Lead() {
     }
 
-    public Lead(String company, String contact, String phone, String email, String website) {
-        this.company = company;
-        this.contact = contact;
-        this.phone = phone;
+    public Lead(LocalDate date, String companyName, String contactPerson, String contactRole, String phoneNumber, String email, String website, String industry, String notes) {
+        this.date = date;
+        this.companyName = companyName;
+        this.contactPerson = contactPerson;
+        this.contactRole = contactRole;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.website = website;
+        this.industry = industry;
+        this.notes = notes;
     }
 
     public String getNotes() {
@@ -76,42 +80,42 @@ public class Lead {
      * @return the company
      */
     public String getCompany() {
-        return company;
+        return companyName;
     }
 
     /**
      * @param company the company to set
      */
     public void setCompany(String company) {
-        this.company = company;
+        this.companyName = company;
     }
 
     /**
      * @return the contact
      */
     public String getContact() {
-        return contact;
+        return contactPerson;
     }
 
     /**
      * @param contact the contact to set
      */
     public void setContact(String contact) {
-        this.contact = contact;
+        this.contactPerson = contact;
     }
 
     /**
      * @return the phone
      */
     public String getPhone() {
-        return phone;
+        return phoneNumber;
     }
 
     /**
      * @param phone the phone to set
      */
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phoneNumber = phone;
     }
 
     /**
