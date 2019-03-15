@@ -113,5 +113,8 @@ public class MyRestController {
         leadRepository.save(lead);
     }
 
-
+    @GetMapping(value ="/leads")
+    public Iterable<Lead> getAllLeads() {
+        return leadRepository.findAll();
+    }
 }

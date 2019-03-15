@@ -15,8 +15,15 @@ public class Event {
     @OneToOne
     @JoinColumn(name = "LEAD_ID")
     private Lead lead;
+    @TableGenerator(name = "Event_Gen",
+            table = "EVENT_ID_GEN",
+            pkColumnName = "EVENT_ID",
+            valueColumnName = "GEN_VAL",
+            pkColumnValue = "Event_Gen",
+            initialValue = 100000,
+            allocationSize = 100)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Event_Gen")
     private int eventId;
     private int eventType;
     private String notes;
