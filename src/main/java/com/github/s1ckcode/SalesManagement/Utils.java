@@ -35,6 +35,11 @@ public class Utils {
                 contacts++;
             }
         }
+        if(contacts == 0 && sales >0) {
+            return 1.0;
+        } else if(sales == 0) {
+            return 0.0;
+        }
         return sales / contacts;
     }
 
@@ -47,6 +52,9 @@ public class Utils {
                 salesCount++;
                 salesValue =+ event.getSum();
             }
+        }
+        if(salesCount == 0) {
+            return 0.0;
         }
         return salesValue / salesCount;
     }
