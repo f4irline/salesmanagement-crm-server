@@ -85,6 +85,11 @@ public class MyRestController {
         return entities;
     }
 
+    @PostMapping(value = "/events/add")
+    public void addEvent(@RequestBody Event event) {
+        eventRepository.save(event);
+    }
+
     @GetMapping(value = "/events/{userId}")
     public Iterable<Event> getAllEventsFromUser(@PathVariable int userId) {
         return eventRepository.findEventsByUser(userRepository.findById(userId));
