@@ -2,6 +2,7 @@ package com.github.s1ckcode.SalesManagement;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
@@ -10,6 +11,7 @@ import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +51,6 @@ public class MyRestController {
     @GetMapping(value = "/userData/{userId}")
     public JsonNode getUserData(@PathVariable int userId) {
         Optional<User> user = userRepository.findById(userId);
-
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("hitRate",utils.getHitrate(user));
@@ -60,8 +61,28 @@ public class MyRestController {
         ((ObjectNode) node).put("offerCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
         ((ObjectNode) node).put("salesCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
 
-
         return node;
+    }
+
+    @GetMapping(value = "/userData/all")
+    public Iterable<JsonNode> getAllUsersData() {
+        ObjectMapper mapper = new ObjectMapper();
+        Iterable<User> users = userRepository.findAll();
+        List<JsonNode> entities= new ArrayList<>();
+
+        for(User user: users) {
+            JsonNode node = mapper.createObjectNode();
+            ((ObjectNode) node).put("hitRate",utils.getHitrate(user));
+            ((ObjectNode) node).put("avgSales",utils.getAvgSales(user));
+            ((ObjectNode) node).put("allSales",utils.getAllSales(user));
+            ((ObjectNode) node).put("contactCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
+            ((ObjectNode) node).put("meetingCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
+            ((ObjectNode) node).put("offerCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
+            ((ObjectNode) node).put("salesCount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
+            entities.add(node);
+        }
+
+        return entities;
     }
 
     @GetMapping(value = "/events/{userId}")
