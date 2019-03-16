@@ -1,13 +1,10 @@
-/* package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
-import com.github.s1ckcode.SalesManagement.Lead.Lead;
-import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +16,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class MyRestController {
+public class UserController {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     EventRepository eventRepository;
-    @Autowired
-    LeadRepository leadRepository;
     @Autowired
     Utils utils;
 
@@ -40,9 +35,9 @@ public class MyRestController {
         return userRepository.findById(userId);
     }
 
-
+    /*
     curl -H"Content-Type: application/json" -X POST -d {\"name\":\"mkyong\",\"role\":\"1\",\"password\":\"abc\"} http://localhost:8080/users/add
-
+     */
     @PostMapping(value = "/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
@@ -93,31 +88,4 @@ public class MyRestController {
 
         return entities;
     }
-
-    @PostMapping(value = "/events/add/{userId}/{leadId}")
-    public void addEvent(@RequestBody Event event, @PathVariable int userId, @PathVariable int leadId) {
-        event.setUser(userRepository.findById(userId).get());
-        event.setLead(leadRepository.findById(leadId).get());
-        eventRepository.save(event);
-    }
-
-    @GetMapping(value = "/events/{userId}")
-    public Iterable<Event> getAllEventsFromUser(@PathVariable int userId) {
-        return eventRepository.findEventsByUser(userRepository.findById(userId).get());
-    }
-
-    @GetMapping(value = "/events")
-    public Iterable<Event> getAllEvents() {
-        return eventRepository.findAll();
-    }
-
-    @PostMapping(value="/leads/add")
-    public void addLead(@RequestBody Lead lead) {
-        leadRepository.save(lead);
-    }
-
-    @GetMapping(value ="/leads")
-    public Iterable<Lead> getAllLeads() {
-        return leadRepository.findAll();
-    }
-} */
+}
