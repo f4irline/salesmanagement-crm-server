@@ -32,12 +32,17 @@ public class SalesManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		userRepository.save(new User("Jaska","Jokunen", LocalDate.now(),User.ADMIN,"Hash1",2000.5));
-		userRepository.save(new User("Tintti","Ala-Hintti",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Tintti","Lahtinen",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Jesse","Solmunen",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Emilia","Tapola",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Rasmus","Suo",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Tiina","Toivonen",LocalDate.now(),User.USER,"Hash2",3002.5));
+
 //		//User user, int eventType, String notes, LocalDate date
 
         //LocalDate date, String companyName, String contactPerson, String contactRole, String phoneNumber, String email, String website, String industry, String notes
-        Lead lead = new Lead(LocalDate.now(), "CompanyABC","Keijo Ala-Kukkula","Boss Man", "010101010101", "keijukainen@koll.fi", "www.pekka.fi", "teollisuus", "Homopekka");
-        leadRepository.save(lead);
+        leadRepository.save(new Lead(LocalDate.now(), "Tesoman Tärpätti ja Törpötti","Tislaamo","Keijo Sipilä", "Boss Man", "0401234567", "keijo@tarpatti.fi", "www.torpottiettarpatti.fi", "Tislaamolle mainosvideota"));
+		leadRepository.save(new Lead(LocalDate.now(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "Boss Man", "0401234567", "simo@lorpotti.fi", "www.lempaalanlorpotti.fi", "Panimolle mainosvideota"));
 /*
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now()));
