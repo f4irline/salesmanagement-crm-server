@@ -93,14 +93,16 @@ public class Utils {
         ObjectMapper mapper = new ObjectMapper();
 
         double wholeSum = 0;
+        double wholeGoal = 0;
 
         Month month = startDate.getMonth();
         YearMonth yearMonth = YearMonth.of(startDate.getYear(),startDate.getMonth());
 //        double wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
         CompanyGoal companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(yearMonth);
 
-
-        double wholeGoal = companyGoal.getMonthlyGoal();
+        if(companyGoal != null) {
+            wholeGoal = companyGoal.getMonthlyGoal();
+        }
 
         int daysInMonth = yearMonth.lengthOfMonth();
         double dailyGoal = wholeGoal/daysInMonth;
@@ -124,8 +126,11 @@ public class Utils {
                 month = date.getMonth();
                // wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
                 companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(YearMonth.of(date.getYear(),date.getMonth()));
-                wholeGoal = companyGoal.getMonthlyGoal();
-
+                if(companyGoal != null) {
+                    wholeGoal = companyGoal.getMonthlyGoal();
+                } else {
+                    wholeGoal = 0;
+                }
                 yearMonth = YearMonth.of(date.getYear(),date.getMonth());
                 daysInMonth = yearMonth.lengthOfMonth();
                 dailyGoal = wholeGoal/daysInMonth;

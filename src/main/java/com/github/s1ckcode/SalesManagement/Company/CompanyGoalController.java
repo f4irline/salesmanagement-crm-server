@@ -19,7 +19,7 @@ public class CompanyGoalController {
     @Autowired
     Utils utils;
 
-    @GetMapping(value ="companyGoal/get/{startDate}/{endDate}")
+    @GetMapping(value ="companyChart/get/{startDate}/{endDate}")
     public Iterable<JsonNode> getCompanyGoalData(@PathVariable String startDate, @PathVariable String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
