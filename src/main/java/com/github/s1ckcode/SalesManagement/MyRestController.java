@@ -1,4 +1,4 @@
-package com.github.s1ckcode.SalesManagement;
+/* package com.github.s1ckcode.SalesManagement;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,17 +10,15 @@ import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class MyRestController {
 
     @Autowired
@@ -42,9 +40,9 @@ public class MyRestController {
         return userRepository.findById(userId);
     }
 
-    /*
+
     curl -H"Content-Type: application/json" -X POST -d {\"name\":\"mkyong\",\"role\":\"1\",\"password\":\"abc\"} http://localhost:8080/users/add
-     */
+
     @PostMapping(value = "/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
@@ -122,12 +120,5 @@ public class MyRestController {
     public Iterable<Lead> getAllLeads() {
         return leadRepository.findAll();
     }
+} */
 
-  //THIS IS THE "CORRECT" ONE  @GetMapping(value = "/companyData/{startDate}/{endDate}")
-  @GetMapping(value = "/companyData/{sdd}/{sdm}/{sdy}/{edd}/{edm}/{edy}")
-    public Iterable<JsonNode> getCompanyChart(@PathVariable int sdd,@PathVariable int sdm,@PathVariable int sdy,@PathVariable int edd,@PathVariable int edm,@PathVariable int edy){                  /// CORRECT ONE  @PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
-        LocalDate startDate = LocalDate.of(sdy,sdm,sdd);
-        LocalDate endDate = LocalDate.of(edy,edm,edd);
-        return utils.getCompanyChartData(startDate, endDate);
-    }
-}
