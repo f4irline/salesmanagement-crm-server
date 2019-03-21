@@ -141,7 +141,6 @@ public class Utils {
             ((ObjectNode) node).put("sum", wholeSum);
             ((ObjectNode) node).put("goal", goal);
             entities.add(node);
-            System.out.println("TÄÄLLÄ KANSSA");
 
             // System.out.println("MOIKKA");
         }
