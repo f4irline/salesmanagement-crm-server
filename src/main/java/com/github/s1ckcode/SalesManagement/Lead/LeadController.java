@@ -1,4 +1,4 @@
-package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement.Lead;
 
 import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;

@@ -22,7 +22,6 @@ public class User {
     private String userLast;
     private LocalDate lastLogin;
     private int role;
-    private String password;
     private double monthlyGoal;
     private @JsonIgnore String password;
     private double goal;

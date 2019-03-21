@@ -27,14 +27,13 @@ import org.springframework.stereotype.Component;
 public class Utils {
 
     @Autowired
-    CompanyGoalRepository companyGoalRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired
     EventRepository eventRepository;
 
+    @Autowired
+    CompanyGoalRepository companyGoalRepository;
 
     public double getHitrate(User user) {
         double contacts = 0;
@@ -87,6 +86,10 @@ public class Utils {
     }
 
     public Iterable<JsonNode> getCompanyChartData(LocalDate startDate, LocalDate endDate) {
+
+
+        Iterable<User> users = userRepository.findAll();
+
         ObjectMapper mapper = new ObjectMapper();
 
         double wholeSum = 0;
@@ -96,6 +99,7 @@ public class Utils {
 //        double wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
         CompanyGoal companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(yearMonth);
 
+
         double wholeGoal = companyGoal.getMonthlyGoal();
 
         int daysInMonth = yearMonth.lengthOfMonth();
@@ -104,11 +108,16 @@ public class Utils {
 
 
         //Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
-        Iterable<Event> events = eventRepository.findAll();
+        //Iterable<Event> events = eventRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
 
-        for(LocalDate date = startDate; startDate.isBefore(endDate); date = date.plusDays(1)) {
-       //     Event event = eventRepository.findEventByDate(date);
+        for(LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+            Iterable<Event> events = eventRepository.findEventsByDate(date);
+            for(Event event : events) {
+                wholeSum += event.getSum();
+            }
+            //wholeSum += event.getSum();
+            //System.out.println(event);
             if(date.getMonth() == month) {
                 goal += dailyGoal;
             } else {
@@ -127,7 +136,9 @@ public class Utils {
             ((ObjectNode) node).put("sum", wholeSum);
             ((ObjectNode) node).put("goal", goal);
             entities.add(node);
-           // System.out.println("MOIKKA");
+            System.out.println("TÄÄLLÄ KANSSA");
+
+            // System.out.println("MOIKKA");
         }
         return entities;
     }

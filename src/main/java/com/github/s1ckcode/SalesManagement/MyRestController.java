@@ -95,10 +95,10 @@ public class MyRestController {
     }
 
     @PostMapping(value = "/events/add/{userId}/{leadId}")
-    public void addEvent(@RequestBody Event event, @PathVariable int userId, @PathVariable int leadId) {
-        event.setUser(userRepository.findById(userId).get());
-        event.setLead(leadRepository.findById(leadId).get());
-        eventRepository.save(event);
+    public void addEvent(@RequestBody Event Event, @PathVariable int userId, @PathVariable int leadId) {
+        Event.setUser(userRepository.findById(userId).get());
+        Event.setLead(leadRepository.findById(leadId).get());
+        eventRepository.save(Event);
     }
 
     @GetMapping(value = "/events/{userId}")
