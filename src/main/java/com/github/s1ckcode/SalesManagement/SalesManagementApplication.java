@@ -53,7 +53,7 @@ public class SalesManagementApplication implements CommandLineRunner {
 
 
 	//(User user, Lead lead, int eventType, String notes, LocalDate date, double sum, String place, String contactPerson, String phoneNumber, String email)
-
+/*
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
 		eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.CONTACT, "kontaktoitu asiakasta, on kiinnostunut",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
@@ -70,7 +70,7 @@ public class SalesManagementApplication implements CommandLineRunner {
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
-
+*/
         companyGoalRepository.save(new CompanyGoal(YearMonth.of(2019,Month.JANUARY),200.0));
 		companyGoalRepository.save(new CompanyGoal(YearMonth.of(2019,Month.FEBRUARY),200.0));
 		companyGoalRepository.save(new CompanyGoal(YearMonth.of(2019,Month.MARCH),200.0));
