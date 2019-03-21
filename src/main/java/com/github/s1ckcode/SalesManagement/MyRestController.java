@@ -10,6 +10,7 @@ import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -122,9 +123,11 @@ public class MyRestController {
         return leadRepository.findAll();
     }
 
-    @GetMapping(value = "/companyData/{date}/")
-    public Iterable<JsonNode> getCompanyChart(@PathVariable LocalDate date) {
-        Month month = date.getMonth();
-        return utils.getCompanyChart(month);
+  //THIS IS THE "CORRECT" ONE  @GetMapping(value = "/companyData/{startDate}/{endDate}")
+  @GetMapping(value = "/companyData/{sdd}/{sdm}/{sdy}/{edd}/{edm}/{edy}")
+    public Iterable<JsonNode> getCompanyChart(@PathVariable int sdd,@PathVariable int sdm,@PathVariable int sdy,@PathVariable int edd,@PathVariable int edm,@PathVariable int edy){                  /// CORRECT ONE  @PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
+        LocalDate startDate = LocalDate.of(sdy,sdm,sdd);
+        LocalDate endDate = LocalDate.of(edy,edm,edd);
+        return utils.getCompanyChartData(startDate, endDate);
     }
 }

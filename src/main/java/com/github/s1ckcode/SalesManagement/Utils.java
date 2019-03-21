@@ -3,7 +3,8 @@ package com.github.s1ckcode.SalesManagement;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.s1ckcode.SalesManagement.Company.CompanyRepository;
+import com.github.s1ckcode.SalesManagement.Company.CompanyGoal;
+import com.github.s1ckcode.SalesManagement.Company.CompanyGoalRepository;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.User.User;
@@ -15,19 +16,18 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.github.s1ckcode.SalesManagement.Event.Event.CONTACT;
 import static com.github.s1ckcode.SalesManagement.Event.Event.SALE;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.jws.soap.SOAPBinding;
-
 @Component
 public class Utils {
+
+    @Autowired
+    CompanyGoalRepository companyGoalRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -35,8 +35,6 @@ public class Utils {
     @Autowired
     EventRepository eventRepository;
 
-    @Autowired
-    CompanyRepository companyRepository;
 
     public double getHitrate(User user) {
         double contacts = 0;
@@ -88,32 +86,48 @@ public class Utils {
         return salesValue;
     }
 
-    public Iterable<JsonNode> getCompanyChart(Month month) {
-        YearMonth yearMonth = YearMonth.of(2019,2);
-        int daysInMonth = yearMonth.lengthOfMonth();
-
+    public Iterable<JsonNode> getCompanyChartData(LocalDate startDate, LocalDate endDate) {
         ObjectMapper mapper = new ObjectMapper();
 
         double wholeSum = 0;
-        int monthNum = 1; //THIS IS GOING TO BE GIVEN MONTH IN INTEGER 1-12
-        double wholeGoal = companyRepository.getMonthlyGoalByMonth(month);
+
+        Month month = startDate.getMonth();
+        YearMonth yearMonth = YearMonth.of(startDate.getYear(),startDate.getMonth());
+//        double wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
+        CompanyGoal companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(yearMonth);
+
+        double wholeGoal = companyGoal.getMonthlyGoal();
+
+        int daysInMonth = yearMonth.lengthOfMonth();
         double dailyGoal = wholeGoal/daysInMonth;
         double goal = 0;
-        int previousDate = 1;
+
 
         //Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
         Iterable<Event> events = eventRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
-        for(Event event: events) {
 
-            goal += (event.getDate().getDayOfMonth() - previousDate) * dailyGoal;
-            previousDate = event.getDate().getDayOfMonth();
+        for(LocalDate date = startDate; startDate.isBefore(endDate); date = date.plusDays(1)) {
+       //     Event event = eventRepository.findEventByDate(date);
+            if(date.getMonth() == month) {
+                goal += dailyGoal;
+            } else {
+                month = date.getMonth();
+               // wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
+                companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(YearMonth.of(date.getYear(),date.getMonth()));
+                wholeGoal = companyGoal.getMonthlyGoal();
 
+                yearMonth = YearMonth.of(date.getYear(),date.getMonth());
+                daysInMonth = yearMonth.lengthOfMonth();
+                dailyGoal = wholeGoal/daysInMonth;
+                goal += dailyGoal;
+            }
             JsonNode node = mapper.createObjectNode();
-            ((ObjectNode) node).put("date",event.getDate().toString());
-            ((ObjectNode) node).put("sum", wholeSum += event.getSum());
+            ((ObjectNode) node).put("date",date.toString());
+            ((ObjectNode) node).put("sum", wholeSum);
             ((ObjectNode) node).put("goal", goal);
             entities.add(node);
+           // System.out.println("MOIKKA");
         }
         return entities;
     }
