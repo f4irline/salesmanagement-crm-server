@@ -38,8 +38,6 @@ public class MyRestController {
         ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.SALE,user));
         ((ArrayList<Iterable>) userEvents).add(leadRepository.findAll());
 
-        System.out.println("MOKKAA");
-
         return userEvents;
     }
 
