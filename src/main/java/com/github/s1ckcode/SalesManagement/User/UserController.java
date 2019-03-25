@@ -51,39 +51,17 @@ public class UserController {
     @GetMapping(value = "/userData/{userId}")
     public JsonNode getUserData(@PathVariable int userId) {
         User user = userRepository.findById(userId).get();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.createObjectNode();
-        ((ObjectNode) node).put("user_first",user.getUserFirst());
-        ((ObjectNode) node).put("user_last",user.getUserLast());
-        ((ObjectNode) node).put("hit_rate",utils.getHitrate(user));
-        ((ObjectNode) node).put("avg_sales",utils.getAvgSales(user));
-        ((ObjectNode) node).put("total_sales",utils.getAllSales(user));
-        ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
-        ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
-        ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
-        ((ObjectNode) node).put("sales_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
 
-        return node;
+        return utils.getUserData(user);
     }
 
     @GetMapping(value = "/userData/all")
     public Iterable<JsonNode> getAllUsersData() {
-        ObjectMapper mapper = new ObjectMapper();
         Iterable<User> users = userRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
 
         for(User user: users) {
-            JsonNode node = mapper.createObjectNode();
-            ((ObjectNode) node).put("user_first",user.getUserFirst());
-            ((ObjectNode) node).put("user_last",user.getUserLast());
-            ((ObjectNode) node).put("hit_rate",utils.getHitrate(user));
-            ((ObjectNode) node).put("avg_sales",utils.getAvgSales(user));
-            ((ObjectNode) node).put("total_sales",utils.getAllSales(user));
-            ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
-            ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
-            ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
-            ((ObjectNode) node).put("sales_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
-            entities.add(node);
+            entities.add(utils.getUserData(user));
         }
 
         return entities;

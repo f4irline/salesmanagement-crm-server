@@ -36,32 +36,19 @@ public class Utils {
     CompanyGoalRepository companyGoalRepository;
 
     public double getHitrate(User user, LocalDate startDate, LocalDate endDate) {
-        double contacts = 0;
-        double sales = 0;
-
         Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                sales++;
-            }
-            else if(event.getEventType() == CONTACT) {
-                contacts++;
-            }
-        }
-        if(contacts == 0 && sales >0) {
-            return 100.0;
-        } else if(sales == 0) {
-            return 0.0;
-        }
-        double procents = (sales / contacts)*100.0;
-        return Math.round(procents * 100.0) /100.0;
+        return calculateHitRate(events);
     }
 
     public double getHitrate(User user) {
+        Iterable<Event> events = (eventRepository.findEventsByUser(user));
+        return calculateHitRate(events);
+    }
+
+    private double calculateHitRate(Iterable<Event> events) {
         double contacts = 0;
         double sales = 0;
 
-        Iterable<Event> events = (eventRepository.findEventsByUser(user));
         for(Event event:events) {
             if(event.getEventType() == SALE) {
                 sales++;
@@ -75,31 +62,25 @@ public class Utils {
         } else if(sales == 0) {
             return 0.0;
         }
+
         double procents = (sales / contacts)*100.0;
         return Math.round(procents * 100.0) /100.0;
     }
 
     public double getAvgSales(User user, LocalDate startDate, LocalDate endDate) {
-        double salesCount = 0;
-        double salesValue = 0;
         Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                salesCount++;
-                salesValue += event.getSum();
-            }
-        }
-        if(salesCount == 0) {
-            return 0.0;
-        }
-        double avgSales = salesValue / salesCount;
-        return Math.round(avgSales * 100.0) /100.0;
+        return calculateAvgSales(events);
     }
 
     public double getAvgSales(User user) {
+        Iterable<Event> events = (eventRepository.findEventsByUser(user));
+        return calculateAvgSales(events);
+    }
+
+    private double calculateAvgSales(Iterable<Event> events) {
         double salesCount = 0;
         double salesValue = 0;
-        Iterable<Event> events = (eventRepository.findEventsByUser(user));
+
         for(Event event:events) {
             if(event.getEventType() == SALE) {
                 salesCount++;
@@ -114,19 +95,18 @@ public class Utils {
     }
 
     public double getAllSales(User user, LocalDate startDate, LocalDate endDate) {
-        double salesValue = 0;
         Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
-        for(Event event:events) {
-            if(event.getEventType() == SALE) {
-                salesValue += event.getSum();
-            }
-        }
-        return salesValue;
+        return calculateSales(events);
     }
 
     public double getAllSales(User user) {
-        double salesValue = 0;
         Iterable<Event> events = (eventRepository.findEventsByUser(user));
+        return calculateSales(events);
+    }
+
+    private double calculateSales(Iterable<Event> events) {
+        double salesValue = 0;
+
         for(Event event:events) {
             if(event.getEventType() == SALE) {
                 salesValue += event.getSum();
@@ -195,6 +175,23 @@ public class Utils {
             // System.out.println("MOIKKA");
         }
         return entities;
+    }
+
+    public JsonNode getUserData(User user) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode node = mapper.createObjectNode();
+        ((ObjectNode) node).put("user_first",user.getUserFirst());
+        ((ObjectNode) node).put("user_last",user.getUserLast());
+        ((ObjectNode) node).put("hit_rate", getHitrate(user));
+        ((ObjectNode) node).put("avg_sales", getAvgSales(user));
+        ((ObjectNode) node).put("total_sales", getAllSales(user));
+        ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
+        ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
+        ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
+        ((ObjectNode) node).put("sales_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
+
+        return node;
     }
 
     public static String hashMyPassword(String password) {
