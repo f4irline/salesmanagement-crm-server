@@ -98,4 +98,14 @@ public class User {
     public LocalDate getCreateDate() {
         return createDate;
     }
+
+    public void clone(User user) {
+
+        setUserFirst(user.getUserFirst());
+        setUserLast(user.getUserLast());
+        setLastLogin(user.getLastLogin());
+        setRole(user.getRole());
+        setMonthlyGoal(user.getMonthlyGoal());
+        setPassword(user.getPassword());
+    }
 }

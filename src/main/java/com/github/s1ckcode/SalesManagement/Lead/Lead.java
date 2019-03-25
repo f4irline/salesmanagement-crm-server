@@ -150,4 +150,21 @@ public class Lead {
     public void setWebsite(String website) {
         this.website = website;
     }
+
+    /**
+     *
+     */
+    public void clone(Lead lead) {
+
+        setDate(lead.getDate());
+        setCompanyName(lead.getCompanyName());
+        setIndustry(lead.getIndustry());
+        setContactPerson(lead.getContactPerson());
+        setContactRole(lead.getContactRole());
+        setPhoneNumber(lead.getPhoneNumber());
+        setEmail(lead.getEmail());
+        setWebsite(lead.getWebsite());
+        setNotes(lead.getNotes());
+
+    }
 }

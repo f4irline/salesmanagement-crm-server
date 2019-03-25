@@ -169,4 +169,17 @@ public class Event {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void clone(Event event) {
+
+        setEventType(event.getEventType());
+        setNotes(event.getNotes());
+        setDate(event.getDate());
+        setSum(event.getSum());
+        setPlace(event.getPlace());
+        setContactPerson(event.getContactPerson());
+        setPhoneNumber(event.getPhoneNumber());
+        setEmail(event.getEmail());
+
+    }
 }
