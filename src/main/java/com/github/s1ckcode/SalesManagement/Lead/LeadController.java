@@ -14,7 +14,9 @@ public class LeadController {
 
     @PostMapping(value="/leads/add")
     public void addLead(@RequestBody Lead lead) {
-        leadRepository.save(lead);
+        if(leadRepository.findByCompanyName(lead.getCompanyName()) == null) {
+            leadRepository.save(lead);
+        }
     }
 
     @GetMapping(value ="/leads")
