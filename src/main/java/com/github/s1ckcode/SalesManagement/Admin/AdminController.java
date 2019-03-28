@@ -38,7 +38,6 @@ public class AdminController {
         EVENT
     }
 
-    @CrossOrigin("*")
     @GetMapping(value = "/admin")
     public Iterable<ArrayNode> getAddData() {
         Iterable<User> userList = userRepository.findAll();
@@ -137,7 +136,6 @@ public class AdminController {
         return node;
     }
 
-    @CrossOrigin("*")
     @PostMapping(value = "/admin/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
@@ -180,16 +178,14 @@ public class AdminController {
         userRepository.save(tmpUser);
     }
 
-    @CrossOrigin("*")
-    @PostMapping(value = "/admin/leads/edit")
+    @PutMapping(value = "/admin/leads/edit")
     public void editLead(@RequestBody Lead lead) {
         Lead tmpLead = leadRepository.findById(lead.getLeadId()).get();
         tmpLead.clone(lead);
         leadRepository.save(tmpLead);
     }
 
-    @CrossOrigin("*")
-    @PostMapping(value = "/admin/events/edit")
+    @PutMapping(value = "/admin/events/edit")
     public void editEvent(@RequestBody Event event) {
         Event tmpEvent = eventRepository.findById(event.getEventId()).get();
         tmpEvent.clone(event);
