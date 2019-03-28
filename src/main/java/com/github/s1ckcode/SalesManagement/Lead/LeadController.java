@@ -14,8 +14,7 @@ public class LeadController {
 
     @PostMapping(value="/leads/add")
     public void addLead(@RequestBody Lead lead) {
-        if(leadRepository.findByCompanyNameIgnoreCase(lead.getCompanyName()) == null) {
-            System.out.println("add lead");
+        if(!leadRepository.findByCompanyNameIgnoreCase(lead.getCompanyName()).isPresent()) {
             leadRepository.save(lead);
         }
     }
