@@ -35,6 +35,28 @@ public class Utils {
     @Autowired
     CompanyGoalRepository companyGoalRepository;
 
+    public double getHitrate(User user, LocalDate startDate, LocalDate endDate) {
+        double contacts = 0;
+        double sales = 0;
+
+        Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
+        for(Event event:events) {
+            if(event.getEventType() == SALE) {
+                sales++;
+            }
+            else if(event.getEventType() == CONTACT) {
+                contacts++;
+            }
+        }
+        if(contacts == 0 && sales >0) {
+            return 100.0;
+        } else if(sales == 0) {
+            return 0.0;
+        }
+        double procents = (sales / contacts)*100.0;
+        return Math.round(procents * 100.0) /100.0;
+    }
+
     public double getHitrate(User user) {
         double contacts = 0;
         double sales = 0;
@@ -57,6 +79,23 @@ public class Utils {
         return Math.round(procents * 100.0) /100.0;
     }
 
+    public double getAvgSales(User user, LocalDate startDate, LocalDate endDate) {
+        double salesCount = 0;
+        double salesValue = 0;
+        Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
+        for(Event event:events) {
+            if(event.getEventType() == SALE) {
+                salesCount++;
+                salesValue += event.getSum();
+            }
+        }
+        if(salesCount == 0) {
+            return 0.0;
+        }
+        double avgSales = salesValue / salesCount;
+        return Math.round(avgSales * 100.0) /100.0;
+    }
+
     public double getAvgSales(User user) {
         double salesCount = 0;
         double salesValue = 0;
@@ -72,6 +111,17 @@ public class Utils {
         }
         double avgSales = salesValue / salesCount;
         return Math.round(avgSales * 100.0) /100.0;
+    }
+
+    public double getAllSales(User user, LocalDate startDate, LocalDate endDate) {
+        double salesValue = 0;
+        Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
+        for(Event event:events) {
+            if(event.getEventType() == SALE) {
+                salesValue += event.getSum();
+            }
+        }
+        return salesValue;
     }
 
     public double getAllSales(User user) {

@@ -70,6 +70,10 @@ public class SalesManagementApplication implements CommandLineRunner {
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.SALE, "kauppa tehty alennuksin",LocalDate.of(2019,05,01),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
         eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.SALE, "kauppa tehty alennuksin",LocalDate.of(2019,06,01),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
 
+        eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
+        eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
+        eventRepository.save(new Event(userRepository.findById(100002).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
+
         eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
         eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
         eventRepository.save(new Event(userRepository.findById(100001).get(),leadRepository.findById(100001).get(), Event.MEETING, "tapaaminen sovittu kahvilaan",LocalDate.now(),200.0,"kauppakeskus","Kilohiiri","05049030","@hotmail.com"));
