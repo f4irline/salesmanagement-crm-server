@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface LeadRepository extends CrudRepository<Lead,Integer> {
-    Lead findByCompanyName(String companyName);
+    Lead findByCompanyNameContainingIgnoreCase(String companyName);
 }
