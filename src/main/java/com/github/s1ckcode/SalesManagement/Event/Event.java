@@ -9,6 +9,10 @@ import java.time.LocalDate;
 @Entity
 public class Event {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Event_Gen")
+    private int eventId;
+    private LocalDate date = LocalDate.now();
     @OneToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -22,17 +26,13 @@ public class Event {
             pkColumnValue = "Event_Gen",
             initialValue = 100000,
             allocationSize = 100)
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "Event_Gen")
-    private int eventId;
     private int eventType;
-    private String notes;
-    private LocalDate date = LocalDate.now();
-    private double sum;
-    private String place;
     private String contactPerson;
     private String phoneNumber;
     private String email;
+    private String place;
+    private double sum;
+    private String notes;
 
     public static final int CONTACT = 0;  //yht.otto
     public static final int MEETING = 1;  //tapaaminen
@@ -168,5 +168,18 @@ public class Event {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void clone(Event event) {
+
+        setEventType(event.getEventType());
+        setNotes(event.getNotes());
+        setDate(event.getDate());
+        setSum(event.getSum());
+        setPlace(event.getPlace());
+        setContactPerson(event.getContactPerson());
+        setPhoneNumber(event.getPhoneNumber());
+        setEmail(event.getEmail());
+
     }
 }

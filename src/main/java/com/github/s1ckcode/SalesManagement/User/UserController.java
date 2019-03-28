@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
+import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -26,6 +27,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    LeadRepository leadRepository;
     @Autowired
     Utils utils;
 
@@ -94,6 +97,21 @@ public class UserController {
         }
 
         return entities;
+    }
+
+    @GetMapping(value = "/userEvents/{userId}")
+    public Iterable<Iterable> getUserEvents(@PathVariable int userId) {
+        Iterable<Iterable> userEvents = new ArrayList<>();
+
+        User user = userRepository.findById(userId).get();
+
+        ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.CONTACT,user));
+        ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.MEETING,user));
+        ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.OFFER,user));
+        ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.SALE,user));
+        ((ArrayList<Iterable>) userEvents).add(leadRepository.findAll());
+
+        return userEvents;
     }
 
     @GetMapping(value = "/users/details")
