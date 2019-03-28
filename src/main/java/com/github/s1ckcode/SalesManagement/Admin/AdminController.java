@@ -38,7 +38,6 @@ public class AdminController {
         EVENT
     }
 
-    @CrossOrigin("*")
     @GetMapping(value = "/admin")
     public Iterable<ArrayNode> getAddData() {
         Iterable<User> userList = userRepository.findAll();
@@ -60,27 +59,21 @@ public class AdminController {
 
         switch (type) {
             case USER:
-
                 for(Object user : list) {
                     arrayNode.add(createUserNode((User) user));
                 }
-
                 break;
 
             case LEAD:
-
                 for(Object lead : list) {
                     arrayNode.add(createLeadNode((Lead) lead));
                 }
-
                 break;
 
             case EVENT:
-
                 for(Object event : list) {
                     arrayNode.add(createEventNode((Event) event));
                 }
-
                 break;
         }
 
@@ -92,12 +85,12 @@ public class AdminController {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("userId", user.getUserId());
+        ((ObjectNode) node).put("createDate", user.getCreateDate().toString());
+        ((ObjectNode) node).put("lastLogin", user.getLastLogin().toString());
         ((ObjectNode) node).put("userFirst",user.getUserFirst());
         ((ObjectNode) node).put("userLast",user.getUserLast());
-        ((ObjectNode) node).put("lastLogin", user.getLastLogin().toString());
         ((ObjectNode) node).put("role", user.getRole());
         ((ObjectNode) node).put("monthlyGoal", user.getMonthlyGoal());
-        ((ObjectNode) node).put("createDate", user.getCreateDate().toString());
 
         return node;
     }
@@ -125,14 +118,14 @@ public class AdminController {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("eventId", event.getEventId());
-        ((ObjectNode) node).put("eventType", event.getEventType());
-        ((ObjectNode) node).put("notes", event.getNotes());
         ((ObjectNode) node).put("date", event.getDate().toString());
-        ((ObjectNode) node).put("sum", event.getSum());
-        ((ObjectNode) node).put("place", event.getPlace());
         ((ObjectNode) node).put("contactPerson", event.getContactPerson());
         ((ObjectNode) node).put("phoneNumber", event.getPhoneNumber());
         ((ObjectNode) node).put("email", event.getEmail());
+        ((ObjectNode) node).put("eventType", event.getEventType());
+        ((ObjectNode) node).put("sum", event.getSum());
+        ((ObjectNode) node).put("place", event.getPlace());
+        ((ObjectNode) node).put("notes", event.getNotes());
 
         return node;
     }
@@ -184,8 +177,4 @@ public class AdminController {
         tmpEvent.clone(event);
         eventRepository.save(tmpEvent);
     }
-
-
-
-
 }

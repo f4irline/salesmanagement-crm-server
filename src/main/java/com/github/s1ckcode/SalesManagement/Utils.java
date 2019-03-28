@@ -86,10 +86,6 @@ public class Utils {
     }
 
     public Iterable<JsonNode> getCompanyChartData(LocalDate startDate, LocalDate endDate) {
-
-
-        Iterable<User> users = userRepository.findAll();
-
         ObjectMapper mapper = new ObjectMapper();
 
         double wholeSum = 0;
@@ -97,7 +93,6 @@ public class Utils {
 
         Month month = startDate.getMonth();
         YearMonth yearMonth = YearMonth.of(startDate.getYear(),startDate.getMonth());
-//        double wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
         CompanyGoal companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(yearMonth);
 
         if(companyGoal != null) {
@@ -108,9 +103,6 @@ public class Utils {
         double dailyGoal = wholeGoal/daysInMonth;
         double goal = 0;
 
-
-        //Iterable<Event> events = eventRepository.findEventsByDateMonth(month);
-        //Iterable<Event> events = eventRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
 
         for(LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
@@ -118,13 +110,10 @@ public class Utils {
             for(Event event : events) {
                 wholeSum += event.getSum();
             }
-            //wholeSum += event.getSum();
-            //System.out.println(event);
             if(date.getMonth() == month) {
                 goal += dailyGoal;
             } else {
                 month = date.getMonth();
-               // wholeGoal = companyGoalRepository.getMonthlyGoalByMonth(month);
                 companyGoal = companyGoalRepository.findCompanyGoalByYearMonth(YearMonth.of(date.getYear(),date.getMonth()));
                 if(companyGoal != null) {
                     wholeGoal = companyGoal.getMonthlyGoal();
@@ -141,8 +130,6 @@ public class Utils {
             ((ObjectNode) node).put("sum", wholeSum);
             ((ObjectNode) node).put("goal", goal);
             entities.add(node);
-
-            // System.out.println("MOIKKA");
         }
         return entities;
     }
