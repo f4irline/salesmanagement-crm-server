@@ -37,7 +37,8 @@ public class AdminController {
         LEAD,
         EVENT
     }
-    
+
+    @CrossOrigin("*")
     @GetMapping(value = "/admin")
     public Iterable<ArrayNode> getAddData() {
         Iterable<User> userList = userRepository.findAll();
@@ -105,16 +106,16 @@ public class AdminController {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
-        ((ObjectNode) node).put("lead_id", lead.getLeadId());
-        ((ObjectNode) node).put("lead_date", lead.getDate().toString());
-        ((ObjectNode) node).put("lead_company_name", lead.getCompanyName());
-        ((ObjectNode) node).put("lead_industry", lead.getIndustry());
-        ((ObjectNode) node).put("lead_contact_person", lead.getContactPerson());
-        ((ObjectNode) node).put("lead_contact_role", lead.getContactRole());
-        ((ObjectNode) node).put("lead_phonenumber", lead.getPhoneNumber());
-        ((ObjectNode) node).put("lead_email", lead.getEmail());
-        ((ObjectNode) node).put("lead_website", lead.getWebsite());
-        ((ObjectNode) node).put("lead_notes", lead.getNotes());
+        ((ObjectNode) node).put("leadId", lead.getLeadId());
+        ((ObjectNode) node).put("date", lead.getDate().toString());
+        ((ObjectNode) node).put("companyName", lead.getCompanyName());
+        ((ObjectNode) node).put("industry", lead.getIndustry());
+        ((ObjectNode) node).put("contactPerson", lead.getContactPerson());
+        ((ObjectNode) node).put("contactRole", lead.getContactRole());
+        ((ObjectNode) node).put("phoneNumber", lead.getPhoneNumber());
+        ((ObjectNode) node).put("email", lead.getEmail());
+        ((ObjectNode) node).put("website", lead.getWebsite());
+        ((ObjectNode) node).put("notes", lead.getNotes());
 
         return node;
     }
@@ -123,19 +124,20 @@ public class AdminController {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
-        ((ObjectNode) node).put("event_id", event.getEventId());
-        ((ObjectNode) node).put("event_type", event.getEventType());
-        ((ObjectNode) node).put("event_notes", event.getNotes());
-        ((ObjectNode) node).put("event_date", event.getDate().toString());
-        ((ObjectNode) node).put("event_sum", event.getSum());
-        ((ObjectNode) node).put("event_place", event.getPlace());
-        ((ObjectNode) node).put("event_contact_person", event.getContactPerson());
-        ((ObjectNode) node).put("event_phonenumber", event.getPhoneNumber());
-        ((ObjectNode) node).put("event_email", event.getEmail());
+        ((ObjectNode) node).put("eventId", event.getEventId());
+        ((ObjectNode) node).put("eventType", event.getEventType());
+        ((ObjectNode) node).put("notes", event.getNotes());
+        ((ObjectNode) node).put("date", event.getDate().toString());
+        ((ObjectNode) node).put("sum", event.getSum());
+        ((ObjectNode) node).put("place", event.getPlace());
+        ((ObjectNode) node).put("contactPerson", event.getContactPerson());
+        ((ObjectNode) node).put("phoneNumber", event.getPhoneNumber());
+        ((ObjectNode) node).put("email", event.getEmail());
 
         return node;
     }
 
+    @CrossOrigin("*")
     @PostMapping(value = "/admin/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
@@ -170,6 +172,7 @@ public class AdminController {
 
     }
 
+    @CrossOrigin("*")
     @PutMapping(value = "/admin/users/edit")
     public void editUser(@RequestBody User user) {
         User tmpUser = userRepository.findById(user.getUserId()).get();
@@ -177,6 +180,7 @@ public class AdminController {
         userRepository.save(tmpUser);
     }
 
+    @CrossOrigin("*")
     @PostMapping(value = "/admin/leads/edit")
     public void editLead(@RequestBody Lead lead) {
         Lead tmpLead = leadRepository.findById(lead.getLeadId()).get();
@@ -184,6 +188,7 @@ public class AdminController {
         leadRepository.save(tmpLead);
     }
 
+    @CrossOrigin("*")
     @PostMapping(value = "/admin/events/edit")
     public void editEvent(@RequestBody Event event) {
         Event tmpEvent = eventRepository.findById(event.getEventId()).get();
