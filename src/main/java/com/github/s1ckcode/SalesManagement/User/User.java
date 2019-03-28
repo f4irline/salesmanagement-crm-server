@@ -106,6 +106,5 @@ public class User {
         setLastLogin(user.getLastLogin());
         setRole(user.getRole());
         setMonthlyGoal(user.getMonthlyGoal());
-        setPassword(user.getPassword());
     }
 }

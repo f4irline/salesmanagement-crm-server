@@ -90,16 +90,13 @@ public class AdminController {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
-        ((ObjectNode) node).put("user_id", user.getUserId());
-        ((ObjectNode) node).put("user_first",user.getUserFirst());
-        ((ObjectNode) node).put("user_last",user.getUserLast());
-        ((ObjectNode) node).put("hit_rate",utils.getHitrate(user));
-        ((ObjectNode) node).put("avg_sales",utils.getAvgSales(user));
-        ((ObjectNode) node).put("total_sales",utils.getAllSales(user));
-        ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
-        ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
-        ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
-        ((ObjectNode) node).put("sales_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.SALE, user)).size());
+        ((ObjectNode) node).put("userId", user.getUserId());
+        ((ObjectNode) node).put("userFirst",user.getUserFirst());
+        ((ObjectNode) node).put("userLast",user.getUserLast());
+        ((ObjectNode) node).put("lastLogin", user.getLastLogin().toString());
+        ((ObjectNode) node).put("role", user.getRole());
+        ((ObjectNode) node).put("monthlyGoal", user.getMonthlyGoal());
+        ((ObjectNode) node).put("createDate", user.getCreateDate().toString());
 
         return node;
     }
@@ -173,7 +170,7 @@ public class AdminController {
 
     }
 
-    @PostMapping(value = "/admin/users/edit")
+    @PutMapping(value = "/admin/users/edit")
     public void editUser(@RequestBody User user) {
         User tmpUser = userRepository.findById(user.getUserId()).get();
         tmpUser.clone(user);
