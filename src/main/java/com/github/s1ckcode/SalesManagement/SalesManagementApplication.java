@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -38,12 +39,12 @@ public class SalesManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		userRepository.save(new User("Jaska","Jokunen", LocalDate.now(),User.ADMIN,"Hash1",2000.5));
-		userRepository.save(new User("Tintti","Lahtinen",LocalDate.now(),User.USER,"Hash2",3002.5));
-		userRepository.save(new User("Jesse","Solmunen",LocalDate.now(),User.USER,"Hash2",3002.5));
-		userRepository.save(new User("Emilia","Tapola",LocalDate.now(),User.USER,"Hash2",3002.5));
-		userRepository.save(new User("Rasmus","Suo",LocalDate.now(),User.USER,"Hash2",3002.5));
-		userRepository.save(new User("Tiina","Toivonen",LocalDate.now(),User.USER,"Hash2",3002.5));
+		userRepository.save(new User("Jaska", "Jaska","Jokunen", LocalDate.now(), "ROLE_ADMIN","Hash1",2000.5));
+		userRepository.save(new User("Tintti", "Tintti","Lahtinen",LocalDate.now(), "ROLE_USER","Hash2",3002.5));
+		userRepository.save(new User("Jesse", "Jesse","Solmunen",LocalDate.now(), "ROLE_ADMIN","Hash2",3002.5));
+		userRepository.save(new User("Emilia", "Emilia","Tapola",LocalDate.now(), "ROLE_USER","Hash2",3002.5));
+		userRepository.save(new User("Rasmus", "Rasmus","Suo",LocalDate.now(), "ROLE_USER","Hash2",3002.5));
+		userRepository.save(new User("Tiina", "Tiina","Toivonen",LocalDate.now(), "ROLE_ADMIN","Hash2",3002.5));
 
 //		//User user, int eventType, String notes, LocalDate date
 

@@ -7,6 +7,10 @@ import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -90,5 +94,15 @@ public class UserController {
         }
 
         return entities;
+    }
+
+    @GetMapping(value = "/users/details")
+    public UserDetails getDetails(Authentication authentication) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } else {
+            return null;
+        }
     }
 }

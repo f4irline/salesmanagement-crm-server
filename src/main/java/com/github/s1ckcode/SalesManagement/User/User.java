@@ -18,27 +18,38 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
     private int userId;
+
+    private String userName;
+
     private String userFirst;
     private String userLast;
     private LocalDate lastLogin;
-    private int role;
+
+    private String role;
+
     private double monthlyGoal;
     private @JsonIgnore String password;
     private double goal;
     private final LocalDate createDate = LocalDate.now();
 
-    public static int USER = 0;
-    public static int ADMIN = 1;
-
     public User(){}
 
-    public User(String userFirst, String userLast, LocalDate lastLogin, int role, String password, double monthlyGoal) {
+    public User(String userName, String userFirst, String userLast, LocalDate lastLogin, String role, String password, double monthlyGoal) {
+        this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
         this.lastLogin = lastLogin;
         this.role = role;
         this.password = Utils.hashMyPassword(password);
         this.monthlyGoal = monthlyGoal;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setUserId(int userId){ this.userId = userId; }
@@ -71,11 +82,11 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
