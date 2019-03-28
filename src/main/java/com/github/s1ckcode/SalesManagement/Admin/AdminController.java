@@ -38,6 +38,7 @@ public class AdminController {
         EVENT
     }
 
+    @CrossOrigin("*")
     @GetMapping(value = "/admin")
     public Iterable<ArrayNode> getAddData() {
         Iterable<User> userList = userRepository.findAll();
@@ -141,33 +142,25 @@ public class AdminController {
         userRepository.save(user);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "/admin/users/{userId}")
     public void deleteUser(@PathVariable int userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-
-        if(userOptional.isPresent()) {
-            userRepository.delete(userOptional.get());
-        }
+        User tmpUser = userRepository.findById(userId).get();
+        userRepository.save(tmpUser);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "/admin/leads/{leadId}")
     public void deleteLead(@PathVariable int leadId) {
-        Optional<Lead> leadOptional = leadRepository.findById(leadId);
-
-        if(leadOptional.isPresent()) {
-            leadRepository.delete(leadOptional.get());
-        }
-
+        Lead tmpLead = leadRepository.findById(leadId).get();
+        leadRepository.delete(tmpLead);
     }
 
+    @CrossOrigin("*")
     @DeleteMapping(value = "/admin/events/{eventId}")
     public void deleteEvent(@PathVariable int eventId) {
-        Optional<Event> eventOptional = eventRepository.findById(eventId);
-
-        if(eventOptional.isPresent()) {
-            eventRepository.delete(eventOptional.get());
-        }
-
+        Event tmpEvent = eventRepository.findById(eventId).get();
+        eventRepository.delete(tmpEvent);
     }
 
     @CrossOrigin("*")
