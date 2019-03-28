@@ -163,7 +163,7 @@ public class Utils {
         //Iterable<Event> events = eventRepository.findAll();
         List<JsonNode> entities= new ArrayList<>();
 
-        for(LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+        for(LocalDate date = startDate; date.isBefore(endDate) || date.isEqual(endDate); date = date.plusDays(1)) {
             Iterable<Event> events = eventRepository.findEventsByDate(date);
             for(Event event : events) {
                 wholeSum += event.getSum();
