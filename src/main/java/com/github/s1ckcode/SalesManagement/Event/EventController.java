@@ -38,4 +38,9 @@ public class EventController {
         return eventRepository.findAll();
     }
 
+    @DeleteMapping(value = "/events/{eventId}")
+    public void deleteEvent(@PathVariable int eventId) {
+        eventRepository.deleteById(eventId);
+    }
+
 }
