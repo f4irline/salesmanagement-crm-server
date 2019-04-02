@@ -23,6 +23,11 @@ public class EventController {
         eventRepository.save(event);
     }
 
+    @GetMapping(value = "/event/{eventId}")
+    public Event getEventById(@PathVariable int eventId) {
+        return eventRepository.findById(eventId).get();
+    }
+
     @GetMapping(value = "/events/{userId}")
     public Iterable<Event> getAllEventsFromUser(@PathVariable int userId) {
         return eventRepository.findEventsByUser(userRepository.findById(userId).get());
@@ -31,6 +36,11 @@ public class EventController {
     @GetMapping(value = "/events")
     public Iterable<Event> getAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @DeleteMapping(value = "/events/{eventId}")
+    public void deleteEvent(@PathVariable int eventId) {
+        eventRepository.deleteById(eventId);
     }
 
 }

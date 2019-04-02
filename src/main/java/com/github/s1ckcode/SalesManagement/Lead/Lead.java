@@ -1,7 +1,12 @@
 package com.github.s1ckcode.SalesManagement.Lead;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.s1ckcode.SalesManagement.Event.Event;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Lead {
