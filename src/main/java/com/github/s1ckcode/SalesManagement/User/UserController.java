@@ -48,6 +48,13 @@ public class UserController {
 
     @DeleteMapping(value = "/users/{userId}")
     public void deleteUser(@PathVariable int userId) {
+        Iterable<Event> events = eventRepository.findEventsByUser(userRepository.findById(userId).get());
+        for(Event event:events) {
+            if(event.getUser() != null) {
+                event.setUser(null);
+            }
+        }
+        System.out.println("\n\nKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK\n\n");
         userRepository.deleteById(userId);
     }
 
