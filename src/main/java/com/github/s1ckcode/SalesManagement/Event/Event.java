@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.Event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.User.User;
 
