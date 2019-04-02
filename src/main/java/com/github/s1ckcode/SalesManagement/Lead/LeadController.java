@@ -25,6 +25,11 @@ public class LeadController {
         }
     }
 
+    @GetMapping(value = "/leads/{leadId}")
+    public Lead getLead(@PathVariable int leadId) {
+        return leadRepository.findById(leadId).get();
+    }
+
     @GetMapping(value ="/leads")
     public Iterable<Lead> getAllLeads() {
         return leadRepository.findAll();
