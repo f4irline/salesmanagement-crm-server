@@ -23,6 +23,11 @@ public class EventController {
         eventRepository.save(event);
     }
 
+    @GetMapping(value = "/event/{eventId}")
+    public Event getEventById(@PathVariable int eventId) {
+        return eventRepository.findById(eventId).get();
+    }
+
     @GetMapping(value = "/events/{userId}")
     public Iterable<Event> getAllEventsFromUser(@PathVariable int userId) {
         return eventRepository.findEventsByUser(userRepository.findById(userId).get());
