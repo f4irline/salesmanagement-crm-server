@@ -54,7 +54,6 @@ public class UserController {
                 event.setUser(null);
             }
         }
-        System.out.println("\n\nKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK\n\n");
         userRepository.deleteById(userId);
     }
 
