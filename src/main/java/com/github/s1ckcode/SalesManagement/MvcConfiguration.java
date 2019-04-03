@@ -16,11 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class MyConfiguration implements WebMvcConfigurer {
+public class MvcConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://localhost:3000", "https://vc-system-server.herokuapp.com", "http://localhost:3000")
-                .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH");
+                .allowedOrigins("https://localhost:3000", "http://localhost:3000", "https://vc-system-server.herokuapp.com")
+                .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
+                .allowedHeaders("authorization, content-type, content-length, xsrf-token, credentials")
+                .allowCredentials(true)
+                .exposedHeaders("xsrf-token")
+                .maxAge(3600);
     }
 
     @Override

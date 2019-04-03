@@ -1,4 +1,4 @@
-package com.github.s1ckcode.SalesManagement;
+package com.github.s1ckcode.SalesManagement.Utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

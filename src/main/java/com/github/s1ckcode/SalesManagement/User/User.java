@@ -1,10 +1,12 @@
 package com.github.s1ckcode.SalesManagement.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.github.s1ckcode.SalesManagement.Utils;
+import com.github.s1ckcode.SalesManagement.User.Role.Role;
+import com.github.s1ckcode.SalesManagement.Utils.Utils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -17,32 +19,44 @@ public class User {
             allocationSize = 100)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
-    private int userId;
+    private Long userId;
 
     private String userName;
 
     private String userFirst;
-    private String userLast;
-    private LocalDate lastLogin;
 
-    private String role;
+    private String userLast;
 
     private double monthlyGoal;
-    private @JsonIgnore String password;
-    private double goal;
+
+    @JsonIgnore
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
     private final LocalDate createDate = LocalDate.now();
+
+    private LocalDate lastLogin;
 
     public User(){}
 
-    public User(String userName, String userFirst, String userLast, LocalDate lastLogin, String role, String password, double monthlyGoal) {
+    public User(String userName, String userFirst, String userLast, String password, double monthlyGoal) {
         this.userName = userName;
         this.userFirst = userFirst;
         this.userLast = userLast;
-        this.lastLogin = lastLogin;
-        this.role = role;
         this.password = Utils.hashMyPassword(password);
         this.monthlyGoal = monthlyGoal;
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId){ this.userId = userId; }
 
     public String getUserName() {
         return userName;
@@ -50,12 +64,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public void setUserId(int userId){ this.userId = userId; }
-
-    public int getUserId() {
-        return userId;
     }
 
     public String getUserFirst() {
@@ -74,28 +82,18 @@ public class User {
         this.userLast = userLast;
     }
 
-    public LocalDate getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(LocalDate lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = this.password = Utils.hashMyPassword(password);
+    }
+
+    public Collection<Role> getRoles() { return roles; }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public double getMonthlyGoal() {
@@ -106,6 +104,14 @@ public class User {
         this.monthlyGoal = monthlyGoal;
     }
 
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public LocalDate getLastLogin() {
+        return lastLogin;
+    }
+
     public LocalDate getCreateDate() {
         return createDate;
     }
@@ -114,8 +120,7 @@ public class User {
 
         setUserFirst(user.getUserFirst());
         setUserLast(user.getUserLast());
-        setLastLogin(user.getLastLogin());
-        setRole(user.getRole());
+        // setRole(user.getRole());
         setMonthlyGoal(user.getMonthlyGoal());
     }
 }

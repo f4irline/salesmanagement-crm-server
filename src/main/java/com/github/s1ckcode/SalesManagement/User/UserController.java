@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
-import com.github.s1ckcode.SalesManagement.Utils;
+import com.github.s1ckcode.SalesManagement.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,26 +33,27 @@ public class UserController {
     @Autowired
     Utils utils;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users")
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value="/users/{userId}")
-    public Optional<User> user(@PathVariable int userId) {
+    public Optional<User> user(@PathVariable Long userId) {
         return userRepository.findById(userId);
     }
 
-    /*
-    curl -H"Content-Type: application/json" -X POST -d {\"name\":\"mkyong\",\"role\":\"1\",\"password\":\"abc\"} http://localhost:8080/users/add
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/users/add")
     public void addUser(@RequestBody User user) {
         userRepository.save(user);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/users/{userId}")
-    public void deleteUser(@PathVariable int userId) {
+    public void deleteUser(@PathVariable Long userId) {
         Iterable<Event> events = eventRepository.findEventsByUser(userRepository.findById(userId).get());
         for(Event event:events) {
             if(event.getUser() != null) {
@@ -61,13 +63,15 @@ public class UserController {
         userRepository.deleteById(userId);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/userData/{userId}")
-    public JsonNode getUserData(@PathVariable int userId) {
+    public JsonNode getUserData(@PathVariable Long userId) {
         User user = userRepository.findById(userId).get();
 
         return utils.getUserData(user);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/userData/all")
     public Iterable<JsonNode> getAllUsersData() {
         Iterable<User> users = userRepository.findAll();
@@ -80,6 +84,7 @@ public class UserController {
         return entities;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value="/userData/all/{startDate}/{endDate}")
     public Iterable<JsonNode> getAllUsersDataBetween(@PathVariable String startDate, @PathVariable String endDate) {
         ObjectMapper mapper = new ObjectMapper();
@@ -105,8 +110,9 @@ public class UserController {
         return entities;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/userEvents/{userId}")
-    public Iterable<Iterable> getUserEvents(@PathVariable int userId) {
+    public Iterable<Iterable> getUserEvents(@PathVariable Long userId) {
         Iterable<Iterable> userEvents = new ArrayList<>();
 
         User user = userRepository.findById(userId).get();
@@ -120,6 +126,7 @@ public class UserController {
         return userEvents;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
     public UserDetails getDetails(Authentication authentication) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
