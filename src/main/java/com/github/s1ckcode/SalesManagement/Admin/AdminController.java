@@ -210,6 +210,7 @@ public class AdminController {
         tmpEvent.clone(event);
 
         tmpEvent.setLead(leadRepository.findById(leadId).get());
+        tmpEvent.setCompanyName(tmpEvent.getLead().getCompanyName());
 
         eventRepository.save(tmpEvent);
     }
