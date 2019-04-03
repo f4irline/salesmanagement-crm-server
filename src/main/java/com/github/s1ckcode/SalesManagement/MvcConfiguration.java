@@ -3,6 +3,7 @@ package com.github.s1ckcode.SalesManagement;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
+
+    @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("https://localhost:3000", "http://localhost:3000", "https://vc-system-server.herokuapp.com")
