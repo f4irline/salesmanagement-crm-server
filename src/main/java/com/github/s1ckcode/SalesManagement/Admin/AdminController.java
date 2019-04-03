@@ -14,6 +14,8 @@ import com.github.s1ckcode.SalesManagement.User.Role.RoleDefinition;
 import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import com.github.s1ckcode.SalesManagement.Utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,8 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
+
+    Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     public enum ObjectType {
         USER,
@@ -93,7 +97,7 @@ public class AdminController {
         JsonNode node = mapper.createObjectNode();
 
         ObjectNode roleNode = f.objectNode();
-        ArrayNode arrayNode = roleNode.putArray("myList");
+        ArrayNode arrayNode = roleNode.putArray("roles");
 
         for (Role role : user.getRoles()) {
             arrayNode.add(role.getDefinition().toString());
@@ -197,10 +201,13 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping(value = "/admin/events/edit")
-    public void editEvent(@RequestBody Event event) {
+    @PutMapping(value = "/admin/events/edit/{leadId}")
+    public void editEvent(@RequestBody Event event, @PathVariable int leadId) {
         Event tmpEvent = eventRepository.findById(event.getEventId()).get();
         tmpEvent.clone(event);
+
+        tmpEvent.setLead(leadRepository.findById(leadId).get());
+        
         eventRepository.save(tmpEvent);
     }
 }
