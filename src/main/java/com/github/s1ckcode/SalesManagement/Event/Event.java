@@ -28,6 +28,7 @@ public class Event {
             initialValue = 100000,
             allocationSize = 100)
     private int eventType;
+    private String companyName;
     private String contactPerson;
     private String phoneNumber;
     private String email;
@@ -46,6 +47,7 @@ public class Event {
     public Event(User user, Lead lead, int eventType, String notes, LocalDate date, double sum, String place, String contactPerson, String phoneNumber, String email) {
         this.user = user;
         this.lead = lead;
+        this.companyName = lead.getCompanyName();
         this.eventType = eventType;
         this.notes = notes;
         this.date = date;
@@ -169,6 +171,14 @@ public class Event {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public void clone(Event event) {
