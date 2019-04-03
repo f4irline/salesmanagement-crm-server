@@ -191,6 +191,7 @@ public class Event {
         setContactPerson(event.getContactPerson());
         setPhoneNumber(event.getPhoneNumber());
         setEmail(event.getEmail());
+        setCompanyName(event.getCompanyName());
 
     }
 }
