@@ -189,6 +189,9 @@ public class AdminController {
     public void editUser(@RequestBody User user) {
         User tmpUser = userRepository.findById(user.getUserId()).get();
         tmpUser.clone(user);
+
+        tmpUser.setRoles(user.getRoles());
+
         userRepository.save(tmpUser);
     }
 
@@ -207,7 +210,7 @@ public class AdminController {
         tmpEvent.clone(event);
 
         tmpEvent.setLead(leadRepository.findById(leadId).get());
-        
+
         eventRepository.save(tmpEvent);
     }
 }

@@ -126,6 +126,12 @@ public class UserController {
         return userEvents;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/users/details/{userId}")
+    public Optional<User> getUserDetailsById(@PathVariable Long userId) {
+        return userRepository.findById(userId);
+    }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
     public UserDetails getDetails(Authentication authentication) {
