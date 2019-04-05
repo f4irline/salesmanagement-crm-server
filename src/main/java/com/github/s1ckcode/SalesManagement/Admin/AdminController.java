@@ -144,10 +144,10 @@ public class AdminController {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
-        ((ObjectNode) node).put("userName", event.getUser().getUserName());
-        ((ObjectNode) node).put("leadCompanyName", event.getLead().getCompanyName());
         ((ObjectNode) node).put("eventId", event.getEventId());
         ((ObjectNode) node).put("date", event.getDate().toString());
+        ((ObjectNode) node).put("userName", event.getUser().getUserName());
+        ((ObjectNode) node).put("leadCompanyName", event.getLead().getCompanyName());
         ((ObjectNode) node).put("contactPerson", event.getContactPerson());
         ((ObjectNode) node).put("phoneNumber", event.getPhoneNumber());
         ((ObjectNode) node).put("email", event.getEmail());
