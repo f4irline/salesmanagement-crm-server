@@ -24,9 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
-        System.out.println("\n IP" +ip+"\n");
         if(loginAttemptService.isBlocked(ip)) {
-            System.out.println("\n BLOOCKEED \n");
             throw new RuntimeException("blocked");
         }
         User user = userRepository.findByUserName(username);

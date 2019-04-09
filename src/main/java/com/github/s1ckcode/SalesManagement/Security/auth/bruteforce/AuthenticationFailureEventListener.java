@@ -20,12 +20,8 @@ public class AuthenticationFailureEventListener
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e) {
         String ip = getClientIP();
 
-
         WebAuthenticationDetails auth = (WebAuthenticationDetails)
                 e.getAuthentication().getDetails();
-
-        System.out.println("\n AUTH   !!!!!!!!!!!!!  "+auth+"  !!!!!!!!!!!!!!!!!!!!\n");
-
 
         loginAttemptService.loginFailed(ip);
     }

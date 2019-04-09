@@ -26,7 +26,6 @@ public class LoginAttemptService {
     }
 
     public void loginSucceeded(String key) {
-        System.out.println("\n !!!!!!!!!!!!!!!!!!!  "+key+"  !!!!!!!!!!!!!!!!!!!!\n");
         attemptsCache.invalidate(key);
     }
 
