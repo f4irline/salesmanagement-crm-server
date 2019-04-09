@@ -6,6 +6,7 @@ import com.github.s1ckcode.SalesManagement.Utils.Utils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -40,7 +41,8 @@ public class User {
 
     private final LocalDate createDate = LocalDate.now();
 
-    private LocalDate lastLogin;
+    private LocalDateTime lastLogin;
+    private LocalDateTime currentLogin;
 
     public User(){}
 
@@ -50,6 +52,8 @@ public class User {
         this.userLast = userLast;
         this.password = Utils.hashMyPassword(password);
         this.monthlyGoal = monthlyGoal;
+        this.lastLogin = LocalDateTime.now();
+        this.currentLogin = LocalDateTime.now();
     }
 
     public Long getUserId() {
@@ -104,12 +108,20 @@ public class User {
         this.monthlyGoal = monthlyGoal;
     }
 
-    public void setLastLogin(LocalDate lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 
-    public LocalDate getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
+    }
+
+    public void setCurrentLogin(LocalDateTime currentLogin) {
+        this.currentLogin = currentLogin;
+    }
+
+    public LocalDateTime getCurrentLogin() {
+        return currentLogin;
     }
 
     public LocalDate getCreateDate() {

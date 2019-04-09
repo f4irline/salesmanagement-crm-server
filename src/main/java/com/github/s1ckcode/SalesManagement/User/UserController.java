@@ -135,6 +135,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/users/details")
     public UserDetails getDetails(Authentication authentication) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
