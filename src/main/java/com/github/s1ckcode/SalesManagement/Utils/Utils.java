@@ -157,8 +157,8 @@ public class Utils {
             }
             JsonNode node = mapper.createObjectNode();
             ((ObjectNode) node).put("date",date.toString());
-            ((ObjectNode) node).put("sum", Math.floor(Math.round(wholeSum)));
-            ((ObjectNode) node).put("goal", Math.floor(Math.round(goal)));
+            ((ObjectNode) node).put("sum", Math.round(wholeSum * 100.0) / 100.0);
+            ((ObjectNode) node).put("goal", Math.round(goal * 100.0) / 100.0);
             entities.add(node);
         }
         return entities;
