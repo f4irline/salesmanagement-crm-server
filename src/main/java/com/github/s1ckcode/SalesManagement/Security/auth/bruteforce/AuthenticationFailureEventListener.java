@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.Security.auth.bruteforce;
 
+import com.github.s1ckcode.SalesManagement.User.UserPrincipalImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
@@ -14,23 +15,13 @@ public class AuthenticationFailureEventListener
 
     @Autowired
     private LoginAttemptService loginAttemptService;
-    @Autowired
-    private HttpServletRequest request;
 
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e) {
-        String ip = getClientIP();
 
-        WebAuthenticationDetails auth = (WebAuthenticationDetails)
-                e.getAuthentication().getDetails();
+        String userName = (String) e.getAuthentication().getPrincipal();
 
-        loginAttemptService.loginFailed(ip);
+        loginAttemptService.loginFailed(userName);
     }
 
-    private String getClientIP() {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null){
-            return request.getRemoteAddr();
-        }
-        return xfHeader.split(",")[0];
-    }
+
 }
