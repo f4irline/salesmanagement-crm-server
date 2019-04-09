@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.User;
 
+import com.github.s1ckcode.SalesManagement.Security.auth.bruteforce.LoginAttemptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,19 +11,27 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
+
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private LoginAttemptService loginAttemptService;
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     @Transactional
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        String ip = getClientIP();
+        if(loginAttemptService.isBlocked(ip)) {
+            throw new RuntimeException("blocked");
+        }
         User user = userRepository.findByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
@@ -62,4 +71,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return false;
     }
 
+
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null){
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
+    }
 }
