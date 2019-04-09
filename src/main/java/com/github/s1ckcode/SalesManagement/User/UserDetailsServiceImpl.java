@@ -21,15 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserRepository userRepository;
     @Autowired
     private LoginAttemptService loginAttemptService;
-    @Autowired
-    private HttpServletRequest request;
 
     @Override
     @Transactional
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        String ip = getClientIP();
-        if(loginAttemptService.isBlocked(ip)) {
+        if(loginAttemptService.isBlocked(username)) {
             throw new RuntimeException("blocked");
         }
         User user = userRepository.findByUserName(username);
@@ -71,12 +67,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return false;
     }
 
-
-    private String getClientIP() {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null){
-            return request.getRemoteAddr();
-        }
-        return xfHeader.split(",")[0];
-    }
 }

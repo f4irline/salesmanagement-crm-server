@@ -51,8 +51,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        String ip = getClientIP();
-        if(loginAttemptService.isBlocked(ip)) {
+        String userName = loginRequest.getUserName();
+        if(loginAttemptService.isBlocked(userName)) {
             return new ResponseEntity<>("",HttpStatus.FORBIDDEN);
         }
 

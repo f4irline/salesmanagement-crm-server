@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.Security.auth.bruteforce;
 
+import com.github.s1ckcode.SalesManagement.User.UserPrincipalImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -14,23 +15,15 @@ public class AuthenticationSuccessEventListener
 
     @Autowired
     private LoginAttemptService loginAttemptService;
-    @Autowired
-    private HttpServletRequest request;
 
     public void onApplicationEvent(AuthenticationSuccessEvent e) {
-        String ip = getClientIP();
 
-        WebAuthenticationDetails auth = (WebAuthenticationDetails)
-                e.getAuthentication().getDetails();
+        UserPrincipalImpl auth = (UserPrincipalImpl)
+                e.getAuthentication().getPrincipal();
 
-        loginAttemptService.loginSucceeded(ip);
+        String userName = auth.getUsername();
+
+        loginAttemptService.loginSucceeded(userName);
     }
 
-    private String getClientIP() {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null){
-            return request.getRemoteAddr();
-        }
-        return xfHeader.split(",")[0];
-    }
 }
