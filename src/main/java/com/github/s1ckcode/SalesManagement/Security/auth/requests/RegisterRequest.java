@@ -20,7 +20,6 @@ public class RegisterRequest {
     @Size(min = 4, max = 20)
     private String password;
 
-    @NotBlank
     private double monthlyGoal;
 
     public String getUserName() {
