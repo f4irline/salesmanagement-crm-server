@@ -104,6 +104,13 @@ public class Utils {
         return calculateSales(events);
     }
 
+    public double getMonthlySales(User user) {
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = LocalDate.of(endDate.getYear(), endDate.getMonth(),0);
+        Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
+        return calculateSales(events);
+    }
+
     private double calculateSales(Iterable<Event> events) {
         double salesValue = 0;
 
@@ -173,6 +180,7 @@ public class Utils {
         ((ObjectNode) node).put("hit_rate", getHitrate(user));
         ((ObjectNode) node).put("avg_sales", getAvgSales(user));
         ((ObjectNode) node).put("total_sales", getAllSales(user));
+        ((ObjectNode) node).put("monthly_sales", getMonthlySales(user));
         ((ObjectNode) node).put("contacts_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.CONTACT, user)).size());
         ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.MEETING, user)).size());
         ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUser(Event.OFFER, user)).size());
