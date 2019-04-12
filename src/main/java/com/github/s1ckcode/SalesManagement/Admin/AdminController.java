@@ -128,7 +128,7 @@ public class AdminController {
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("leadId", lead.getLeadId());
         ((ObjectNode) node).put("date", lead.getDate().toString());
-        ((ObjectNode) node).put("userName",lead.getUser().getUserName());
+        ((ObjectNode) node).put("userName",lead.getUserName());
         ((ObjectNode) node).put("companyName", lead.getCompanyName());
         ((ObjectNode) node).put("industry", lead.getIndustry());
         ((ObjectNode) node).put("contactPerson", lead.getContactPerson());
@@ -181,7 +181,7 @@ public class AdminController {
     @DeleteMapping(value = "/admin/users/{userId}")
     public void deleteUser(@PathVariable Long userId) {
         User tmpUser = userRepository.findById(userId).get();
-        userRepository.save(tmpUser);
+        userRepository.delete(tmpUser);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

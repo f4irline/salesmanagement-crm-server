@@ -75,8 +75,10 @@ public class DataInit {
     }
 
     private void initLeads() {
-        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100001).get(), "Tesoman Tärpätti ja Törpötti","Tislaamo","Keijo Sipilä", "Boss Man", "0401234567", "keijo@tarpatti.fi", "www.torpottiettarpatti.fi", "Tislaamolle mainosvideota"));
-        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100001).get(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "Boss Man", "0401234567", "simo@lorpotti.fi", "www.lempaalanlorpotti.fi", "Panimolle mainosvideota"));
+        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Tesoman Tärpätti ja Törpötti","Tislaamo","Keijo Sipilä", "Boss Man", "0401234567", "keijo@tarpatti.fi", "www.torpottiettarpatti.fi", "Tislaamolle mainosvideota"));
+        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "Boss Man", "0401234567", "simo@lorpotti.fi", "www.lempaalanlorpotti.fi", "Panimolle mainosvideota"));
+        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100002).get().getUserName(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "Boss Man", "0401234567", "simo@lorpotti.fi", "www.lempaalanlorpotti.fi", "Panimolle mainosvideota"));
+        leadRepository.save(new Lead(LocalDate.now(),userRepository.findById((long)100003).get().getUserName(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "Boss Man", "0401234567", "simo@lorpotti.fi", "www.lempaalanlorpotti.fi", "Panimolle mainosvideota"));
     }
 
     private void initEvents() {

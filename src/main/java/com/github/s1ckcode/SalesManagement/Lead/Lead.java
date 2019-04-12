@@ -23,9 +23,7 @@ public class Lead {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Lead_Gen")
     private int leadId;
     private LocalDate date;
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    private String userName;
     private String companyName;
     private String industry;
     private String contactPerson;
@@ -38,9 +36,9 @@ public class Lead {
     public Lead() {
     }
 
-    public Lead(LocalDate date, User user, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
+    public Lead(LocalDate date, String userName, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
         this.date = date;
-        this.user = user;
+        this.userName = userName;
         this.companyName = companyName;
         this.industry = industry;
         this.contactPerson = contactPerson;
@@ -161,12 +159,12 @@ public class Lead {
         this.website = website;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserName(String user) {
+        this.userName = userName;
     }
 
     /**
@@ -175,7 +173,7 @@ public class Lead {
     public void clone(Lead lead) {
 
         setDate(lead.getDate());
-        setUser(lead.getUser());
+        setUserName(lead.getUserName());
         setCompanyName(lead.getCompanyName());
         setIndustry(lead.getIndustry());
         setContactPerson(lead.getContactPerson());

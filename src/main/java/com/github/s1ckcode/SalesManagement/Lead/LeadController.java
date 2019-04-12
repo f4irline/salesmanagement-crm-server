@@ -27,7 +27,7 @@ public class LeadController {
     @PostMapping(value="/leads/add/{userId}")
     public void addLead(@RequestBody Lead lead, @PathVariable long userId) {
         if(!leadRepository.findByCompanyNameIgnoreCase(lead.getCompanyName()).isPresent()) {
-            lead.setUser(userRepository.findById(userId).get());
+            lead.setUserName(userRepository.findById(userId).get().getUserName());
             leadRepository.save(lead);
         }
     }
