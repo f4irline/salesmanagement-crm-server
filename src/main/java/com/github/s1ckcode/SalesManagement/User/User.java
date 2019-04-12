@@ -20,7 +20,7 @@ public class User {
             allocationSize = 100)
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "User_Gen")
-    private Long userId;
+    private long userId;
 
     private String userName;
 

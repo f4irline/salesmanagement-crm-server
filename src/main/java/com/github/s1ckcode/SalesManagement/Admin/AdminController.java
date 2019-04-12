@@ -128,6 +128,7 @@ public class AdminController {
         JsonNode node = mapper.createObjectNode();
         ((ObjectNode) node).put("leadId", lead.getLeadId());
         ((ObjectNode) node).put("date", lead.getDate().toString());
+        ((ObjectNode) node).put("userName",lead.getUser().getUserName());
         ((ObjectNode) node).put("companyName", lead.getCompanyName());
         ((ObjectNode) node).put("industry", lead.getIndustry());
         ((ObjectNode) node).put("contactPerson", lead.getContactPerson());

@@ -1,6 +1,7 @@
 package com.github.s1ckcode.SalesManagement.Security;
 
 import com.github.s1ckcode.SalesManagement.Security.auth.ApiResponse;
+import com.github.s1ckcode.SalesManagement.Security.auth.bruteforce.LoginAttemptService;
 import com.github.s1ckcode.SalesManagement.Security.auth.jwt.JwtAuthResponse;
 import com.github.s1ckcode.SalesManagement.Security.auth.jwt.JwtTokenizer;
 import com.github.s1ckcode.SalesManagement.Security.auth.requests.LoginRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
@@ -40,8 +42,19 @@ public class AuthController {
     @Autowired
     JwtTokenizer tokenizer;
 
+    @Autowired
+    private LoginAttemptService loginAttemptService;
+
+    @Autowired
+    private HttpServletRequest request;
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+        String userName = loginRequest.getUserName();
+        if(loginAttemptService.isBlocked(userName)) {
+            return new ResponseEntity<>("",HttpStatus.FORBIDDEN);
+        }
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -77,5 +90,13 @@ public class AuthController {
                 .buildAndExpand(result.getUserName()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null){
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 }

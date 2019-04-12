@@ -2,6 +2,7 @@ package com.github.s1ckcode.SalesManagement.Lead;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.s1ckcode.SalesManagement.Event.Event;
+import com.github.s1ckcode.SalesManagement.User.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +23,9 @@ public class Lead {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Lead_Gen")
     private int leadId;
     private LocalDate date;
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
     private String companyName;
     private String industry;
     private String contactPerson;
@@ -34,8 +38,9 @@ public class Lead {
     public Lead() {
     }
 
-    public Lead(LocalDate date, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
+    public Lead(LocalDate date, User user, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
         this.date = date;
+        this.user = user;
         this.companyName = companyName;
         this.industry = industry;
         this.contactPerson = contactPerson;
@@ -156,12 +161,21 @@ public class Lead {
         this.website = website;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     /**
      *
      */
     public void clone(Lead lead) {
 
         setDate(lead.getDate());
+        setUser(lead.getUser());
         setCompanyName(lead.getCompanyName());
         setIndustry(lead.getIndustry());
         setContactPerson(lead.getContactPerson());
