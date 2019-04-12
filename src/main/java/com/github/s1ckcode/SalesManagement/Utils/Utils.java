@@ -106,7 +106,7 @@ public class Utils {
 
     public double getMonthlySales(User user) {
         LocalDate endDate = LocalDate.now();
-        LocalDate startDate = LocalDate.of(endDate.getYear(), endDate.getMonth(),0);
+        LocalDate startDate = LocalDate.of(endDate.getYear(), endDate.getMonth(),1);
         Iterable<Event> events = (eventRepository.findEventsByUserAndDateBetween(user, startDate, endDate));
         return calculateSales(events);
     }
