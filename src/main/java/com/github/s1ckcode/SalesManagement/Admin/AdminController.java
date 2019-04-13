@@ -137,6 +137,7 @@ public class AdminController {
         ((ObjectNode) node).put("email", lead.getEmail());
         ((ObjectNode) node).put("website", lead.getWebsite());
         ((ObjectNode) node).put("notes", lead.getNotes());
+        ((ObjectNode) node).put("stage", lead.getStage());
 
         return node;
     }
