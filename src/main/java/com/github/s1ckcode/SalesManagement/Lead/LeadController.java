@@ -28,6 +28,7 @@ public class LeadController {
     public void addLead(@RequestBody Lead lead, @PathVariable long userId) {
         if(!leadRepository.findByCompanyNameIgnoreCase(lead.getCompanyName()).isPresent()) {
             lead.setUserName(userRepository.findById(userId).get().getUserName());
+            lead.setStage("NEW");
             leadRepository.save(lead);
         }
     }

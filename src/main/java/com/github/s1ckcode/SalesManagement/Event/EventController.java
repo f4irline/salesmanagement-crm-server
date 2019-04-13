@@ -22,6 +22,14 @@ public class EventController {
     public void addEvent(@RequestBody Event event, @PathVariable Long userId, @PathVariable int leadId) {
         event.setUser(userRepository.findById(userId).get());
         event.setLead(leadRepository.findById(leadId).get());
+        switch (event.getEventType()) {
+            case 3:
+                leadRepository.findById(leadId).get().setStage("SOLD");
+                break;
+            default:
+                leadRepository.findById(leadId).get().setStage("CONTACTED");
+        }
+
         eventRepository.save(event);
     }
 

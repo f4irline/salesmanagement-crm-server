@@ -32,6 +32,7 @@ public class Lead {
     private String email;
     private String website;
     private String notes;
+    private String stage;
 
     public Lead() {
     }
@@ -166,6 +167,10 @@ public class Lead {
     public void setUserName(String user) {
         this.userName = userName;
     }
+
+    public String getStage() { return stage; }
+
+    public void setStage(String stage) { this.stage = stage; }
 
     /**
      *
