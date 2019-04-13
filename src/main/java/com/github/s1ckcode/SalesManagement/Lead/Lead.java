@@ -164,7 +164,7 @@ public class Lead {
         return userName;
     }
 
-    public void setUserName(String user) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
