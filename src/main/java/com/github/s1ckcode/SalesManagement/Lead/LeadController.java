@@ -34,6 +34,15 @@ public class LeadController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @PutMapping(value="/leads/close/{leadId}")
+    public void closeLead(@PathVariable int leadId) {
+        Lead tmpLead = leadRepository.findById(leadId).get();
+        tmpLead.clone(leadRepository.findById(leadId).get());
+        tmpLead.setStage("CLOSED");
+        leadRepository.save(tmpLead);
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/leads/{leadId}")
     public Lead getLead(@PathVariable int leadId) {
         return leadRepository.findById(leadId).get();

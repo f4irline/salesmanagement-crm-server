@@ -22,6 +22,7 @@ public class Lead {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "Lead_Gen")
     private int leadId;
+
     private LocalDate date;
     private String userName;
     private String companyName;
@@ -30,14 +31,20 @@ public class Lead {
     private String contactRole;
     private String phoneNumber;
     private String email;
-    private String website;
+    private String meeted;
+    @ElementCollection
+    private List<String> discussion;
+    private String potential;
     private String notes;
     private String stage;
 
     public Lead() {
     }
 
-    public Lead(LocalDate date, String userName, String companyName, String industry, String contactPerson, String contactRole, String phoneNumber, String email, String website, String notes) {
+    public Lead(
+            LocalDate date, String userName, String companyName, String industry, String contactPerson,
+            String contactRole, String phoneNumber, String email, String meeted, List<String> discussion,
+            String potential, String notes) {
         this.date = date;
         this.userName = userName;
         this.companyName = companyName;
@@ -46,7 +53,9 @@ public class Lead {
         this.contactRole = contactRole;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.website = website;
+        this.meeted = meeted;
+        this.discussion = discussion;
+        this.potential = potential;
         this.notes = notes;
     }
 
@@ -146,18 +155,28 @@ public class Lead {
         this.email = email;
     }
 
-    /**
-     * @return the website
-     */
-    public String getWebsite() {
-        return website;
+    public String getMeeted() {
+        return meeted;
     }
 
-    /**
-     * @param website the website to set
-     */
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setMeeted(String meeted) {
+        this.meeted = meeted;
+    }
+
+    public List<String> getDiscussion() {
+        return discussion;
+    }
+
+    public void setDiscussion(List<String> discussion) {
+        this.discussion = discussion;
+    }
+
+    public String getPotential() {
+        return potential;
+    }
+
+    public void setPotential(String potential) {
+        this.potential = potential;
     }
 
     public String getUserName() {
@@ -185,7 +204,9 @@ public class Lead {
         setContactRole(lead.getContactRole());
         setPhoneNumber(lead.getPhoneNumber());
         setEmail(lead.getEmail());
-        setWebsite(lead.getWebsite());
+        setMeeted(lead.getMeeted());
+        setDiscussion(lead.getDiscussion());
+        setPotential(lead.getPotential());
         setNotes(lead.getNotes());
 
     }

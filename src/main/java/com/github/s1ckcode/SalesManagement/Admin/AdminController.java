@@ -126,6 +126,15 @@ public class AdminController {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
+
+        JsonNodeFactory f = JsonNodeFactory.instance ;
+        ObjectNode discussionNode = f.objectNode();
+        ArrayNode arrayNode = discussionNode.putArray("discussion");
+
+        for (String discussion : lead.getDiscussion()) {
+            arrayNode.add(discussion);
+        }
+
         ((ObjectNode) node).put("leadId", lead.getLeadId());
         ((ObjectNode) node).put("date", lead.getDate().toString());
         ((ObjectNode) node).put("userName",lead.getUserName());
@@ -135,7 +144,9 @@ public class AdminController {
         ((ObjectNode) node).put("contactRole", lead.getContactRole());
         ((ObjectNode) node).put("phoneNumber", lead.getPhoneNumber());
         ((ObjectNode) node).put("email", lead.getEmail());
-        ((ObjectNode) node).put("website", lead.getWebsite());
+        ((ObjectNode) node).put("potential", lead.getPotential());
+        ((ObjectNode) node).put("meeted", lead.getMeeted());
+        ((ObjectNode) node).putArray("discussion").add(arrayNode);
         ((ObjectNode) node).put("notes", lead.getNotes());
         ((ObjectNode) node).put("stage", lead.getStage());
 
