@@ -78,7 +78,9 @@ public class UserController {
         List<JsonNode> entities= new ArrayList<>();
 
         for(User user: users) {
-            entities.add(utils.getUserData(user));
+            if (!user.getUserName().equals("SUPERADMIN")) {
+                entities.add(utils.getUserData(user));
+            }
         }
 
         return entities;
@@ -104,7 +106,9 @@ public class UserController {
             ((ObjectNode) node).put("meetings_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUserAndDateBetween(Event.MEETING, user, startLocalDate, endLocalDate)).size());
             ((ObjectNode) node).put("offers_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUserAndDateBetween(Event.OFFER, user, startLocalDate, endLocalDate)).size());
             ((ObjectNode) node).put("sales_amount", ((List<Event>)eventRepository.findEventsByEventTypeAndUserAndDateBetween(Event.SALE, user, startLocalDate, endLocalDate)).size());
-            entities.add(node);
+           if (!user.getUserName().equals("SUPERADMIN")) {
+               entities.add(node);
+           }
         }
 
         return entities;
