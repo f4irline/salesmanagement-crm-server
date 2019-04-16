@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.github.s1ckcode.SalesManagement.Company.CompanyGoal;
+import com.github.s1ckcode.SalesManagement.Company.CompanyGoalRepository;
 import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.Lead.Lead;
@@ -38,12 +40,16 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CompanyGoalRepository companyGoalRepository;
+
     Logger logger = LoggerFactory.getLogger(AdminController.class);
 
     public enum ObjectType {
         USER,
         LEAD,
-        EVENT
+        EVENT,
+        GOAL
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -52,11 +58,13 @@ public class AdminController {
         Iterable<User> userList = userRepository.findAll();
         Iterable<Lead> leadList = leadRepository.findAll();
         Iterable<Event> eventList = eventRepository.findAll();
+        Iterable<CompanyGoal> goalList = companyGoalRepository.findAll();
 
         List<ArrayNode> arrayNodes = new ArrayList<>();
         arrayNodes.add(createArrayNode(userList, ObjectType.USER));
         arrayNodes.add(createArrayNode(leadList, ObjectType.LEAD));
         arrayNodes.add(createArrayNode(eventList, ObjectType.EVENT));
+        arrayNodes.add(createArrayNode(goalList, ObjectType.GOAL));
 
         return arrayNodes;
     }
@@ -84,9 +92,25 @@ public class AdminController {
                     arrayNode.add(createEventNode((Event) event));
                 }
                 break;
+            case GOAL:
+                for (Object goal : list) {
+                    arrayNode.add(createGoalNode((CompanyGoal) goal));
+                }
         }
 
         return arrayNode;
+    }
+
+    private JsonNode createGoalNode(CompanyGoal goal) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.createObjectNode();
+
+        ((ObjectNode) node).put("goalId", goal.getCompanyGoalId());
+        ((ObjectNode) node).put("month", goal.getYearMonth().getMonthValue());
+        ((ObjectNode) node).put("year", goal.getYearMonth().getYear());
+        ((ObjectNode) node).put("monthlyGoal", goal.getMonthlyGoal());
+
+        return node;
     }
 
     private JsonNode createUserNode(User user) {
@@ -239,5 +263,13 @@ public class AdminController {
         tmpEvent.setCompanyName(tmpEvent.getLead().getCompanyName());
 
         eventRepository.save(tmpEvent);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(value = "/admin/companyGoals/edit")
+    public void editGoal(@RequestBody CompanyGoal companyGoal) {
+        CompanyGoal tmpGoal = companyGoalRepository.findById(companyGoal.getCompanyGoalId()).get();
+        tmpGoal.clone(companyGoal);
+        companyGoalRepository.save(tmpGoal);
     }
 }

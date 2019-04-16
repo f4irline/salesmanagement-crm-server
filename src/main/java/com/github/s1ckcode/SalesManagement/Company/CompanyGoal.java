@@ -3,8 +3,6 @@ package com.github.s1ckcode.SalesManagement.Company;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 
 @Entity
@@ -45,5 +43,10 @@ public class CompanyGoal {
 
     public void setMonthlyGoal(double monthlyGoal) {
         this.monthlyGoal = monthlyGoal;
+    }
+
+    public void clone(CompanyGoal goal) {
+        setYearMonth(goal.getYearMonth());
+        setMonthlyGoal(goal.getMonthlyGoal());
     }
 }
