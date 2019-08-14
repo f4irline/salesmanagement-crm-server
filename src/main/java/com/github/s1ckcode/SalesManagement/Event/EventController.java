@@ -67,6 +67,7 @@ public class EventController {
         ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.OFFER));
         ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.SALE));
         ((ArrayList<Iterable>) allEvents).add(leadRepository.findAll());
+        ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.CLOSE));
 
         return allEvents;
     }
