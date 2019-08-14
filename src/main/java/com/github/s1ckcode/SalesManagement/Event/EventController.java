@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/api")
 public class EventController {
@@ -49,6 +51,20 @@ public class EventController {
     @GetMapping(value = "/events")
     public Iterable<Event> getAllEvents() {
         return eventRepository.findAll();
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping(value = "/events/all")
+    public Iterable<Iterable> getAllEventsForUser() {
+        Iterable<Iterable> allEvents = new ArrayList<>();
+
+        ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.CONTACT));
+        ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.MEETING));
+        ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.OFFER));
+        ((ArrayList<Iterable>) allEvents).add(eventRepository.findEventsByEventType(Event.SALE));
+        ((ArrayList<Iterable>) allEvents).add(leadRepository.findAll());
+
+        return allEvents;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
