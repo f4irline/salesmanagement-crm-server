@@ -40,6 +40,7 @@ public class Event {
     public static final int MEETING = 1;  //tapaaminen
     public static final int OFFER = 2;    //tarjous
     public static final int SALE = 3;     //kauppa
+    public static final int CLOSE = 5;
 
     public Event() {
     }

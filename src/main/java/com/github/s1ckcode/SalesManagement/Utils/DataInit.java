@@ -82,8 +82,7 @@ public class DataInit {
         Lead maalaamo = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Maalaamo","Maalaus","Keijo Sipilä", "Myynti", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota");
         maalaamo.setStage("SOLD");
         Lead pv = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Puolustusvoimat","Maanpuolustus","Keijo Sipilä", "Viestintäpäällikkö", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota");
-        pv.setStage("CLOSED");
-
+        pv.setStage("NEW");
         leadRepository.saveAll(Arrays.asList(tarpatti, lorpotti, maalaamo, pv));
     }
 

@@ -126,6 +126,7 @@ public class UserController {
         ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.OFFER,user));
         ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.SALE,user));
         ((ArrayList<Iterable>) userEvents).add(leadRepository.findAll());
+        ((ArrayList<Iterable>) userEvents).add(eventRepository.findEventsByEventTypeAndUser(Event.CLOSE,user));
 
         return userEvents;
     }
