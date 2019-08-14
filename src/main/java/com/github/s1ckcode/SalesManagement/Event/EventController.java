@@ -1,5 +1,6 @@
 package com.github.s1ckcode.SalesManagement.Event;
 
+import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class EventController {
         event.setUser(userRepository.findById(userId).get());
         event.setLead(leadRepository.findById(leadId).get());
         switch (event.getEventType()) {
+            case 5:
+                leadRepository.findById(leadId).get().setStage("CLOSED");
+                break;
             case 3:
                 leadRepository.findById(leadId).get().setStage("SOLD");
                 break;
