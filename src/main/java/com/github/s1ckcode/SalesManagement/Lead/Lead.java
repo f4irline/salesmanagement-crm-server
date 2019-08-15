@@ -25,6 +25,9 @@ public class Lead {
 
     private LocalDate date;
     private String userName;
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
     private String companyName;
     private String industry;
     private String contactPerson;
@@ -44,7 +47,8 @@ public class Lead {
     public Lead(
             LocalDate date, String userName, String companyName, String industry, String contactPerson,
             String contactRole, String phoneNumber, String email, String meeted, List<String> discussion,
-            String potential, String notes) {
+            String potential, String notes, User user) {
+        this.user = user;
         this.date = date;
         this.userName = userName;
         this.companyName = companyName;
@@ -57,6 +61,14 @@ public class Lead {
         this.discussion = discussion;
         this.potential = potential;
         this.notes = notes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getNotes() {

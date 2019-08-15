@@ -4,6 +4,7 @@ import com.github.s1ckcode.SalesManagement.Event.Event;
 import com.github.s1ckcode.SalesManagement.Event.EventRepository;
 import com.github.s1ckcode.SalesManagement.Lead.Lead;
 import com.github.s1ckcode.SalesManagement.Lead.LeadRepository;
+import com.github.s1ckcode.SalesManagement.User.User;
 import com.github.s1ckcode.SalesManagement.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,9 @@ public class LeadController {
     @PostMapping(value="/leads/add/{userId}")
     public void addLead(@RequestBody Lead lead, @PathVariable long userId) {
         if(!leadRepository.findByCompanyNameIgnoreCase(lead.getCompanyName()).isPresent()) {
-            lead.setUserName(userRepository.findById(userId).get().getUserName());
+            User user = userRepository.findById(userId).get();
+            lead.setUserName(user.getUserName());
+            lead.setUser(user);
             lead.setStage("NEW");
             leadRepository.save(lead);
         }

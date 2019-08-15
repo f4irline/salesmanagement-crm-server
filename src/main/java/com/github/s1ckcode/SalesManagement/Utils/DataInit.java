@@ -75,13 +75,14 @@ public class DataInit {
     }
 
     private void initLeads() {
-        Lead tarpatti = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Tesoman Tärpätti ja Törpötti","Tislaamo","Keijo Sipilä", "Johto", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota");
+        User jaska = userRepository.findByUserName("Jaska");
+        Lead tarpatti = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Tesoman Tärpätti ja Törpötti","Tislaamo","Keijo Sipilä", "Johto", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota", jaska);
         tarpatti.setStage("NEW");
-        Lead lorpotti = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "HR", "0401234567", "simo@lorpotti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Panimolle mainosvideota");
+        Lead lorpotti = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Lempäälän Lörpötti","Panimo","Simo Seinälä", "HR", "0401234567", "simo@lorpotti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Panimolle mainosvideota", jaska);
         lorpotti.setStage("CONTACTED");
-        Lead maalaamo = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Maalaamo","Maalaus","Keijo Sipilä", "Myynti", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota");
+        Lead maalaamo = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Maalaamo","Maalaus","Keijo Sipilä", "Myynti", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota", jaska);
         maalaamo.setStage("SOLD");
-        Lead pv = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Puolustusvoimat","Maanpuolustus","Keijo Sipilä", "Viestintäpäällikkö", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota");
+        Lead pv = new Lead(LocalDate.now(),userRepository.findById((long)100001).get().getUserName(), "Puolustusvoimat","Maanpuolustus","Keijo Sipilä", "Viestintäpäällikkö", "0401234567", "keijo@tarpatti.fi", "Prospektointi", Arrays.asList("Yritysvideo", "Yritysilme"), "3", "Tislaamolle mainosvideota", jaska);
         pv.setStage("NEW");
         leadRepository.saveAll(Arrays.asList(tarpatti, lorpotti, maalaamo, pv));
     }
