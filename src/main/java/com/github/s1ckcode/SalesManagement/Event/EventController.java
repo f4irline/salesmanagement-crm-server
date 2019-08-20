@@ -40,6 +40,18 @@ public class EventController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @PutMapping(value = "/events/edit/{leadId}")
+    public void editEvent(@RequestBody Event event, @PathVariable int leadId) {
+        Event tmpEvent = eventRepository.findById(event.getEventId()).get();
+        tmpEvent.clone(event);
+
+        tmpEvent.setLead(leadRepository.findById(leadId).get());
+        tmpEvent.setCompanyName(tmpEvent.getLead().getCompanyName());
+
+        eventRepository.save(tmpEvent);
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/event/{eventId}")
     public Event getEventById(@PathVariable int eventId) {
         return eventRepository.findById(eventId).get();
