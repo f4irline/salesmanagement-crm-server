@@ -43,10 +43,7 @@ public class AuthController {
     JwtTokenizer tokenizer;
 
     @Autowired
-    private LoginAttemptService loginAttemptService;
-
-    @Autowired
-    private HttpServletRequest request;
+    LoginAttemptService loginAttemptService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -90,13 +87,5 @@ public class AuthController {
                 .buildAndExpand(result.getUserName()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
-    }
-
-    private String getClientIP() {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null){
-            return request.getRemoteAddr();
-        }
-        return xfHeader.split(",")[0];
     }
 }

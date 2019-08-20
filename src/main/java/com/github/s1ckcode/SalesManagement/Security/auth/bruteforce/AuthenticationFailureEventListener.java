@@ -17,8 +17,10 @@ public class AuthenticationFailureEventListener
     private LoginAttemptService loginAttemptService;
 
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent e) {
+        UserPrincipalImpl auth = (UserPrincipalImpl)
+                e.getAuthentication().getPrincipal();
 
-        String userName = (String) e.getAuthentication().getPrincipal();
+        String userName = auth.getUsername();
 
         loginAttemptService.loginFailed(userName);
     }
