@@ -46,6 +46,14 @@ public class LeadController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @PutMapping(value = "/leads/edit")
+    public void editLead(@RequestBody Lead lead) {
+        Lead tmpLead = leadRepository.findById(lead.getLeadId()).get();
+        tmpLead.clone(lead);
+        leadRepository.save(tmpLead);
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/leads/{leadId}")
     public Lead getLead(@PathVariable int leadId) {
         return leadRepository.findById(leadId).get();
