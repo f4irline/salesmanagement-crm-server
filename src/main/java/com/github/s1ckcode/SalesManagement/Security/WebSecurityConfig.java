@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.headers().frameOptions().disable()
                     .and()
                 .requiresChannel()
-                    .requestMatchers(r -> r.getHeader("X-Forwarder-Proto") != null)
+                    .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
                     .requiresSecure()
                     .and()
                 .exceptionHandling()
