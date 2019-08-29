@@ -22,7 +22,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://vc-sales.herokuapp.com", "http://vc-sales.herokuapp.com")
+                .allowedOrigins("https://localhost", "https://localhost:3000")
                 .allowedMethods("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH")
                 .allowedHeaders("authorization, content-type, content-length, xsrf-token, credentials")
                 .allowCredentials(true)
