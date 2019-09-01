@@ -18,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,6 +45,12 @@ public class AuthController {
 
     @Autowired
     LoginAttemptService loginAttemptService;
+
+    @RequestMapping(value="/csrf-token", method=RequestMethod.GET)
+    public @ResponseBody String getCsrfToken(HttpServletRequest request) {
+        CsrfToken token = (CsrfToken)request.getAttribute(CsrfToken.class.getName());
+        return token.getToken();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
